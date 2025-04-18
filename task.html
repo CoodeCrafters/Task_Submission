@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Submission of the Task</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding: 20px;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .timer-block {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            background: #1f1f1f;
+            padding: 30px 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            max-width: 100%;
+            justify-content: center;
+        }
+
+        .time-unit {
+            background: #292929;
+            padding: 35px;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .time-value {
+            font-size: 3.75em;
+            font-weight: bold;
+        }
+
+        .time-label {
+            font-size: 1.2em;
+            color: #aaaaaa;
+        }
+
+        .upload-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .file-input-wrapper {
+            border: 2px dotted #03dac6;
+            padding: 25px 20px;
+            border-radius: 12px;
+            background-color: #1e1e1e;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .file-input-wrapper:hover {
+            background-color: #2a2a2a;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            color: white;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+        }
+
+        button {
+            padding: 12px 25px;
+            background-color: #03dac6;
+            color: black;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        button:hover {
+            background-color: #00bfa5;
+        }
+
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 500px;
+            background-color: #1f1f1f;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+
+        th {
+            background-color: #292929;
+        }
+
+        @media (max-width: 600px) {
+            .time-value {
+                font-size: 2.2em;
+            }
+            .time-label {
+                font-size: 1em;
+            }
+            .time-unit {
+                padding: 25px;
+                min-width: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 id="taskTitle">Submission of the Task</h1>
+    <div class="timer-block" id="timerBlock">
+        <div class="time-unit">
+            <div class="time-value" id="hours">00</div>
+            <div class="time-label">Hours</div>
+        </div>
+        <div class="time-unit">
+            <div class="time-value" id="minutes">00</div>
+            <div class="time-label">Minutes</div>
+        </div>
+        <div class="time-unit">
+            <div class="time-value" id="seconds">00</div>
+            <div class="time-label">Seconds</div>
+        </div>
+    </div>
+
+    <div class="upload-section">
+        <div class="file-input-wrapper">
+            <input type="file" id="fileInput" onchange="displayFileDetails()">
+        </div>
+        <button onclick="submitFile()">Submit</button>
+    </div>
+
+    <div id="fileDetailsContainer"></div>
+
+    <script>
+        const queryParams = new URLSearchParams(window.location.search);
+        const taskName = queryParams.get("task");
+        document.getElementById("taskTitle").textContent = taskName || "Submission of the Task";
+
+        function getDeadline(task) {
+            switch (task) {
+                case "ASEP1 Paper Organization Selection":
+                case "ASEP2 Literature Review":
+                    return new Date("2025-04-18T19:00:00");
+                case "LAADE Case Study Activity 1":
+                    return new Date("2025-04-18T22:00:00");
+                default:
+                    return new Date();
+            }
+        }
+
+        const deadline = getDeadline(taskName);
+
+        function updateTimer() {
+            const now = new Date();
+            const timeDiff = deadline - now;
+
+            if (timeDiff > 0) {
+                const hours = String(Math.floor(timeDiff / (1000 * 60 * 60))).padStart(2, '0');
+                const minutes = String(Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+                const seconds = String(Math.floor((timeDiff % (1000 * 60)) / 1000)).padStart(2, '0');
+
+                document.getElementById("hours").textContent = hours;
+                document.getElementById("minutes").textContent = minutes;
+                document.getElementById("seconds").textContent = seconds;
+            } else {
+                document.getElementById("timerBlock").innerHTML =
+                    '<div style="color: red; font-size: 1.5em;">Deadline passed!</div>';
+                document.getElementById("fileInput").disabled = true;
+                const submitBtn = document.querySelector("button");
+                submitBtn.disabled = true;
+                submitBtn.style.backgroundColor = "#555";
+                submitBtn.style.cursor = "not-allowed";
+            }
+        }
+
+        function displayFileDetails() {
+            const fileInput = document.getElementById("fileInput");
+            const files = fileInput.files;
+            const container = document.getElementById("fileDetailsContainer");
+
+            if (files.length > 0) {
+                let html = '<table><thead><tr><th>#</th><th>File Name</th><th>Size (KB)</th></tr></thead><tbody>';
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    html += `<tr><td>${i + 1}</td><td>${file.name}</td><td>${(file.size / 1024).toFixed(2)}</td></tr>`;
+                }
+                html += '</tbody></table>';
+                container.innerHTML = html;
+            } else {
+                container.innerHTML = '';
+            }
+        }
+
+        function submitFile() {
+            const now = new Date();
+            if (now > deadline) {
+                alert("Submission deadline has passed. You can no longer submit files.");
+                return;
+            }
+
+            const fileInput = document.getElementById("fileInput");
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert("Please select a file to submit.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("file", file);
+
+            fetch("https://task-submission-m5hy.onrender.com/upload", {
+                method: "POST",
+                body: formData,
+            })
+            .then(res => res.json())
+            .then(data => {
+                alert("File submitted and uploaded to GitHub!");
+                console.log(data);
+            })
+            .catch(err => {
+                console.error("Upload error:", err);
+                alert("Something went wrong.");
+            });
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    </script>
+</body>
+</html>
