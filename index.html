@@ -187,9 +187,18 @@
         }
 
        function submitFile() {
+    const now = new Date();
+    const deadline = new Date();
+    deadline.setHours(19, 0, 0, 0); // 7:00 PM
+
+    if (now > deadline) {
+        alert("Submission deadline has passed. You can no longer submit files.");
+        return;
+    }
+
     const fileInput = document.getElementById("fileInput");
     const file = fileInput.files[0];
-    
+
     if (!file) {
         alert("Please select a file to submit.");
         return;
@@ -198,7 +207,7 @@
     const formData = new FormData();
     formData.append("file", file);
 
-    fetch("https://your-backend-domain/upload", {
+    fetch("https://task-submission-m5hy.onrender.com/upload", {
         method: "POST",
         body: formData,
     })
