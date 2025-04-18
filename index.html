@@ -148,25 +148,39 @@
     <div id="fileDetailsContainer"></div>
 
     <script>
-        function updateTimer() {
-            const now = new Date();
-            const endOfDay = new Date();
-            endOfDay.setHours(19, 0, 0, 0); // 7:00 PM today
+       function updateTimer() {
+    const now = new Date();
+    const endOfDay = new Date();
+    endOfDay.setHours(19, 0, 0, 0); // 7:00 PM today
 
-            const timeDiff = endOfDay - now;
+    const timeDiff = endOfDay - now;
 
-            if (timeDiff > 0) {
-                const hours = String(Math.floor(timeDiff / (1000 * 60 * 60))).padStart(2, '0');
-                const minutes = String(Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-                const seconds = String(Math.floor((timeDiff % (1000 * 60)) / 1000)).padStart(2, '0');
+    if (timeDiff > 0) {
+        const hours = String(Math.floor(timeDiff / (1000 * 60 * 60))).padStart(2, '0');
+        const minutes = String(Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+        const seconds = String(Math.floor((timeDiff % (1000 * 60)) / 1000)).padStart(2, '0');
 
-                document.getElementById("hours").textContent = hours;
-                document.getElementById("minutes").textContent = minutes;
-                document.getElementById("seconds").textContent = seconds;
-            } else {
-                document.querySelector(".timer-block").innerHTML = '<div style="color: red; font-size: 1.5em;">Deadline passed!</div>';
-            }
-        }
+        document.getElementById("hours").textContent = hours;
+        document.getElementById("minutes").textContent = minutes;
+        document.getElementById("seconds").textContent = seconds;
+    } else {
+        document.querySelector(".timer-block").innerHTML =
+            '<div style="color: red; font-size: 1.5em;">Deadline passed!</div>';
+
+        // ❌ Disable file input and button
+        const fileInput = document.getElementById("fileInput");
+        const submitBtn = document.querySelector("button");
+
+        fileInput.disabled = true;
+        submitBtn.disabled = true;
+
+        // Optional: Change appearance to indicate disabled state
+        fileInput.style.cursor = "not-allowed";
+        submitBtn.style.backgroundColor = "#555";
+        submitBtn.style.cursor = "not-allowed";
+    }
+}
+
 
         function displayFileDetails() {
             const fileInput = document.getElementById("fileInput");
