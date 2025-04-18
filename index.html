@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Task Selection</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
@@ -51,6 +52,34 @@
     .task-card p {
       color: #aaa;
     }
+    @media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+  }
+
+  .task-grid {
+    grid-template-columns: 1fr; /* single column layout on small screens */
+    gap: 15px;
+  }
+
+  .task-card {
+    padding: 20px 15px;
+  }
+
+  .task-card h3 {
+    font-size: 1.5em;
+  }
+
+  .task-card p {
+    font-size: 0.9em;
+  }
+}
+
   </style>
 </head>
 <body>
