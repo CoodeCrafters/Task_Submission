@@ -4,36 +4,51 @@ const multer = require('multer');
 const fs = require('fs');
 const axios = require('axios');
 const path = require('path');
+const cors = require('cors');
 
 const app = express();
 const upload = multer({ dest: 'uploads/' });
 
+// Enable CORS for all origins
+app.use(cors());
 app.use(express.json());
 
 app.post('/upload', upload.single('file'), async (req, res) => {
     const file = req.file;
-    const content = fs.readFileSync(file.path, { encoding: 'base64' });
 
-    const githubRes = await axios.put(
-        `https://api.github.com/repos/${process.env.GITHUB_REPO}/contents/uploads/${file.originalname}`,
-        {
-            message: `Upload ${file.originalname}`,
-            content: content,
-            branch: process.env.GITHUB_BRANCH
-        },
-        {
-            headers: {
-                Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-                'User-Agent': 'NodeUploader'
+    if (!file) {
+        return res.status(400).json({ error: 'No file uploaded.' });
+    }
+
+    try {
+        const content = fs.readFileSync(file.path, { encoding: 'base64' });
+
+        const githubRes = await axios.put(
+            `https://api.github.com/repos/${process.env.GITHUB_REPO}/contents/uploads/${file.originalname}`,
+            {
+                message: `Upload ${file.originalname}`,
+                content: content,
+                branch: process.env.GITHUB_BRANCH
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+                    'User-Agent': 'NodeUploader'
+                }
             }
-        }
-    );
+        );
 
-    fs.unlinkSync(file.path); // clean up local file
+        fs.unlinkSync(file.path); // delete local file
 
-    res.json({ message: "Uploaded to GitHub", url: githubRes.data.content.html_url });
+        res.json({ message: "Uploaded to GitHub", url: githubRes.data.content.html_url });
+
+    } catch (error) {
+        console.error("GitHub upload failed:", error.response?.data || error.message);
+        res.status(500).json({ error: "Upload failed", details: error.response?.data || error.message });
+    }
 });
 
-app.listen(3000, () => {
-    console.log('Server running on http://localhost:3000');
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
 });
