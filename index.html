@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Task Selection</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       background-color: #121212;
@@ -36,6 +35,7 @@
       text-align: center;
       cursor: pointer;
       transition: 0.3s ease;
+      position: relative;
     }
 
     .task-card:hover {
@@ -46,40 +46,64 @@
 
     .task-card h3 {
       color: #03dac6;
-      font-size: 2em
+      font-size: 2em;
     }
 
     .task-card p {
       color: #aaa;
     }
+
+    .ribbon {
+      width: 120px;
+      background: #ff4c4c;
+      color: white;
+      text-align: center;
+      font-weight: bold;
+      transform: rotate(-45deg);
+      position: absolute;
+      top: 12px;
+      right: -35px;
+      padding: 5px 0;
+      font-size: 0.75em;
+      z-index: 1;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    }
+
+    .task-card.open .ribbon {
+      background: #03dac6;
+    }
+
+    .task-card.closed .ribbon {
+      background: #ff4c4c;
+    }
+
     @media (max-width: 600px) {
-  body {
-    padding: 10px;
-  }
+      body {
+        padding: 10px;
+      }
 
-  h1 {
-    font-size: 1.8em;
-    margin-bottom: 20px;
-  }
+      h1 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+      }
 
-  .task-grid {
-    grid-template-columns: 1fr; /* single column layout on small screens */
-    gap: 15px;
-  }
+      .task-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
 
-  .task-card {
-    padding: 20px 15px;
-  }
+      .task-card {
+        padding: 20px 15px;
+      }
 
-  .task-card h3 {
-    font-size: 1.5em;
-  }
+      .task-card h3 {
+        font-size: 1.5em;
+      }
 
-  .task-card p {
-    font-size: 0.9em;
-  }
-}
-
+      .task-card p {
+        font-size: 0.9em;
+      }
+    }
   </style>
 </head>
 <body>
@@ -87,19 +111,26 @@
 <h1>Select a Task</h1>
 
 <div class="task-grid">
-  <div class="task-card" onclick="goToTask('ASEP1 Paper Organization Selection')">
+  <div class="task-card closed" onclick="goToTask('ASEP1 Paper Organization Selection')">
+    <div class="ribbon">Closed</div>
     <h3>ASEP1 Paper</h3>
     <p>Organization Selection<br>Deadline: 18 Apr, 7:00 PM</p>
   </div>
-  <div class="task-card" onclick="goToTask('ASEP2 Literature Review')">
+
+  <div class="task-card closed" onclick="goToTask('ASEP2 Literature Review')">
+    <div class="ribbon">Closed</div>
     <h3>ASEP2</h3>
     <p>Literature Review<br>Deadline: 18 Apr, 7:00 PM</p>
   </div>
-  <div class="task-card" onclick="goToTask('LAADE Case Study Activity 1')">
+
+  <div class="task-card open" onclick="goToTask('LAADE Case Study Activity 1')">
+    <div class="ribbon">Open</div>
     <h3>LAADE Activity 1</h3>
     <p>Case Study 1<br>Deadline: 22 Apr, 10:00 PM</p>
   </div>
-   <div class="task-card" onclick="goToTask('Literature Review')">
+
+  <div class="task-card open" onclick="goToTask('Literature Review')">
+    <div class="ribbon">Open</div>
     <h3>Literature Review</h3>
     <p>For ASEP2<br>Deadline: 22 Apr, 04:00 PM</p>
   </div>
@@ -107,7 +138,7 @@
 
 <script>
   function goToTask(taskName) {
-    window.location.href = `task.html?task=${taskName}`;
+    window.location.href = `task.html?task=${encodeURIComponent(taskName)}`;
   }
 </script>
 
