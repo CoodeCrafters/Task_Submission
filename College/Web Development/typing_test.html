@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velocity | Typing Speed Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --secondary: #3f37c9;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --success: #4cc9f0;
+            --warning: #f72585;
+            --gray: #adb5bd;
+            --gray-dark: #495057;
+            --text-size: 1.25rem;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5;
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            text-align: center;
+        }
+        
+        h1 {
+            font-weight: 600;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-weight: 300;
+            opacity: 0.9;
+        }
+        
+        .stats-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 1.5rem 2rem;
+            background-color: white;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat-box {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray-dark);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        
+        .text-display-container {
+            position: relative;
+            padding: 0 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .text-display {
+            padding: 1.5rem;
+            font-size: var(--text-size);
+            line-height: 1.8;
+            background-color: #f8f9fa;
+            min-height: 180px;
+            border-radius: 8px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: pre-wrap;
+            text-align: left;
+            transition: font-size 0.3s ease;
+        }
+        
+        .text-size-controls {
+            position: absolute;
+            right: 2.5rem;
+            top: 0.2rem;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+        
+        .text-size-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: white;
+            border: 1px solid var(--gray);
+            color: var(--dark);
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .text-size-btn:hover {
+            background: var(--primary-light);
+            color: white;
+        }
+        
+        .text-input {
+            width: calc(100% - 4rem);
+            margin: 0 2rem;
+            padding: 1.25rem;
+            font-size: 1.1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            resize: none;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+        }
+        
+        .text-input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            background-color: #f8f9fa;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        select {
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+            font-family: 'Poppins', sans-serif;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        select:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        button {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .word {
+            display: inline-block;
+            margin-right: 0.5em;
+            margin-bottom: 0.5em;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        
+        .word.correct {
+            background-color: rgba(76, 201, 240, 0.2);
+            border-radius: 4px;
+            padding: 0 2px;
+        }
+        
+        .word.incorrect {
+            background-color: rgba(247, 37, 133, 0.2);
+            border-radius: 4px;
+            padding: 0 2px;
+            text-decoration: line-through;
+            text-decoration-thickness: 2px;
+            text-decoration-color: var(--warning);
+        }
+        
+        .word.current {
+            background-color: rgba(67, 97, 238, 0.1);
+            border-radius: 4px;
+        }
+        
+        .word.current::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+            animation: blink 1s infinite;
+        }
+        
+        .char.correct {
+            color: var(--success);
+        }
+        
+        .char.incorrect {
+            color: var(--warning);
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        footer {
+            text-align: center;
+            color: var(--gray-dark);
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .container {
+                border-radius: 12px;
+            }
+            
+            .stats-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .text-display-container, .text-input {
+                margin-left: 1rem;
+                margin-right: 1rem;
+                width: calc(100% - 2rem);
+            }
+            
+            .text-display {
+                font-size: calc(var(--text-size) - 0.15rem);
+                padding: 1rem;
+            }
+            
+            .text-size-controls {
+                right: 1.5rem;
+                top: 1rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Velocity Typing</h1>
+            <p class="subtitle">Test and improve your typing speed</p>
+        </header>
+        
+        <div class="stats-container">
+            <div class="stat-box">
+                <div class="stat-value" id="timer">60</div>
+                <div class="stat-label">Seconds</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="wpm">0</div>
+                <div class="stat-label">Words/Min</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="accuracy">0%</div>
+                <div class="stat-label">Accuracy</div>
+            </div>
+        </div>
+        
+        <div class="text-display-container">
+            <div class="text-size-controls">
+                <button class="text-size-btn" id="decrease-text">-</button>
+                <button class="text-size-btn" id="increase-text">+</button>
+            </div>
+            <div id="text-display" class="text-display"></div>
+        </div>
+        
+        <textarea id="text-input" class="text-input" placeholder="Start typing here to begin the test..."></textarea>
+        
+        <div class="controls">
+            <div>
+                <label for="time-select"></label>
+                <select id="time-select">
+                    <option value="30">30 seconds</option>
+                    <option value="60" selected>1 minute</option>
+                    <option value="120">2 minutes</option>
+                    <option value="300">5 minutes</option>
+                </select>
+                
+                <label for="difficulty-select"></label>
+                <select id="difficulty-select">
+                    <option value="easy">Easy</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </div>
+            
+            <button id="reset-btn">Restart Test</button>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2025 Velocity Typing Test | Designed for maximum productivity</p>
+    </footer>
+
+    <script>
+        // Enhanced sample texts with more variety
+        const sampleTexts = {
+            easy: [
+                "The quick brown fox jumps over the lazy dog. This classic sentence contains all the letters of the English alphabet and is perfect for typing practice.",
+                "Learning to type quickly and accurately is an essential skill in today's digital world. Regular practice will significantly improve your speed over time.",
+                "Typing is the process of writing or inputting text by pressing keys on a keyboard. With practice, you can type without looking at the keys, which is called touch typing."
+            ],
+            medium: [
+                "The QWERTY keyboard layout was designed in the 1870s for mechanical typewriters. Despite newer layouts claiming to be more efficient, QWERTY remains the standard layout used worldwide today.",
+                "Touch typing involves placing your fingers on the home row keys (ASDF for the left hand and JKL; for the right hand) and using all fingers to type without looking at the keyboard.",
+                "Ergonomic keyboards are designed to minimize strain and reduce injuries such as carpal tunnel syndrome. They often feature a split design and wrist support for comfortable typing."
+            ],
+            hard: [
+                "The Dvorak Simplified Keyboard was patented in 1936 by August Dvorak. Research indicates it increases typing speed and reduces errors compared to QWERTY, but widespread adoption has been limited by QWERTY's established dominance.",
+                "Stenotype machines enable trained professionals to type at speeds exceeding 300 words per minute by pressing multiple keys simultaneously to represent syllables, words, or phrases. Court reporters frequently utilize these specialized machines.",
+                "Barbara Blackburn set the world record for typing speed on a QWERTY keyboard in 2005, achieving 216 words per minute. She maintained 150 wpm for 50 minutes and peaked at 212 wpm during official typing tests."
+            ]
+        };
+
+        // DOM elements
+        const textDisplay = document.getElementById('text-display');
+        const textInput = document.getElementById('text-input');
+        const timerElement = document.getElementById('timer');
+        const wpmElement = document.getElementById('wpm');
+        const accuracyElement = document.getElementById('accuracy');
+        const resetBtn = document.getElementById('reset-btn');
+        const timeSelect = document.getElementById('time-select');
+        const difficultySelect = document.getElementById('difficulty-select');
+        const increaseTextBtn = document.getElementById('increase-text');
+        const decreaseTextBtn = document.getElementById('decrease-text');
+
+        // Variables
+        let timer;
+        let timeLeft;
+        let isTyping = false;
+        let startTime;
+        let totalTyped = 0;
+        let correctTyped = 0;
+        let currentText = '';
+        let currentWords = [];
+        let currentWordIndex = 0;
+        let currentCharIndex = 0;
+
+        // Initialize the test
+        function init() {
+            // Reset variables
+            clearInterval(timer);
+            isTyping = false;
+            totalTyped = 0;
+            correctTyped = 0;
+            currentWordIndex = 0;
+            currentCharIndex = 0;
+            timeLeft = parseInt(timeSelect.value);
+            timerElement.textContent = timeLeft;
+            wpmElement.textContent = '0';
+            accuracyElement.textContent = '0%';
+            textInput.value = '';
+            textInput.disabled = false;
+            textInput.focus();
+
+            // Get random text based on difficulty
+            const difficulty = difficultySelect.value;
+            const texts = sampleTexts[difficulty];
+            currentText = texts[Math.floor(Math.random() * texts.length)];
+            currentWords = currentText.split(' ');
+
+            // Display the text with word wrapping
+            renderText();
+        }
+
+        // Render text with proper word wrapping
+        function renderText() {
+            textDisplay.innerHTML = '';
+            currentWords.forEach((word, index) => {
+                const wordSpan = document.createElement('span');
+                wordSpan.className = 'word';
+                if (index === 0) wordSpan.classList.add('current');
+                
+                // Add each character with its own span
+                word.split('').forEach(char => {
+                    const charSpan = document.createElement('span');
+                    charSpan.className = 'char';
+                    charSpan.textContent = char;
+                    wordSpan.appendChild(charSpan);
+                });
+                
+                // Add space after each word except the last one
+                if (index < currentWords.length - 1) {
+                    const spaceSpan = document.createElement('span');
+                    spaceSpan.className = 'char space';
+                    spaceSpan.textContent = ' ';
+                    wordSpan.appendChild(spaceSpan);
+                }
+                
+                textDisplay.appendChild(wordSpan);
+            });
+        }
+
+        // Update word highlighting based on user input
+        function updateWordHighlighting(inputText) {
+            const inputWords = inputText.split(' ');
+            const displayWords = textDisplay.querySelectorAll('.word');
+            
+            // Reset all word highlighting
+            displayWords.forEach(word => {
+                word.classList.remove('correct', 'incorrect', 'current');
+            });
+            
+            // Highlight current and previous words
+            let charCount = 0;
+            let correctCharCount = 0;
+            
+            for (let i = 0; i < inputWords.length; i++) {
+                if (i >= currentWords.length) break;
+                
+                const inputWord = inputWords[i];
+                const correctWord = currentWords[i];
+                const wordElement = displayWords[i];
+                
+                if (i < inputWords.length - 1) {
+                    // Completed word
+                    if (inputWord === correctWord) {
+                        wordElement.classList.add('correct');
+                        correctCharCount += correctWord.length;
+                    } else {
+                        wordElement.classList.add('incorrect');
+                    }
+                    charCount += correctWord.length + 1; // +1 for space
+                } else {
+                    // Current word being typed
+                    wordElement.classList.add('current');
+                    let correctInCurrent = 0;
+                    
+                    // Highlight characters in current word
+                    const chars = wordElement.querySelectorAll('.char:not(.space)');
+                    for (let j = 0; j < inputWord.length; j++) {
+                        if (j < chars.length) {
+                            if (inputWord[j] === correctWord[j]) {
+                                chars[j].classList.add('correct');
+                                correctInCurrent++;
+                            } else {
+                                chars[j].classList.add('incorrect');
+                            }
+                        }
+                    }
+                    
+                    correctCharCount += correctInCurrent;
+                    charCount += inputWord.length;
+                }
+            }
+            
+            // Update stats
+            totalTyped = charCount;
+            correctTyped = correctCharCount;
+            calculateStats();
+        }
+
+        // Start the typing test
+        function startTyping() {
+            if (!isTyping) {
+                isTyping = true;
+                startTime = new Date().getTime();
+                
+                // Start timer
+                timer = setInterval(() => {
+                    timeLeft--;
+                    timerElement.textContent = timeLeft;
+                    
+                    if (timeLeft <= 0) {
+                        finishTest();
+                    }
+                    
+                    // Update WPM continuously
+                    calculateStats();
+                }, 1000);
+            }
+        }
+
+        // Finish the test
+        function finishTest() {
+            clearInterval(timer);
+            isTyping = false;
+            textInput.disabled = true;
+            
+            // Calculate final stats
+            calculateStats();
+        }
+
+        // Calculate WPM and accuracy
+        function calculateStats() {
+            const elapsedTime = (parseInt(timeSelect.value) - timeLeft) || 1;
+            const minutes = elapsedTime / 60;
+            const words = totalTyped / 5;
+            const wpm = Math.round(words / minutes);
+            
+            const accuracy = totalTyped > 0 ? Math.round((correctTyped / totalTyped) * 100) : 0;
+            
+            wpmElement.textContent = wpm;
+            accuracyElement.textContent = accuracy + '%';
+            
+            return { wpm, accuracy };
+        }
+
+        // Adjust text size
+        function adjustTextSize(direction) {
+            const root = document.documentElement;
+            let currentSize = parseFloat(getComputedStyle(root).getPropertyValue('--text-size'));
+            
+            if (direction === 'increase' && currentSize < 1.8) {
+                currentSize += 0.1;
+            } else if (direction === 'decrease' && currentSize > 0.8) {
+                currentSize -= 0.1;
+            }
+            
+            root.style.setProperty('--text-size', `${currentSize}rem`);
+        }
+
+        // Event listeners
+        textInput.addEventListener('input', (e) => {
+            if (!isTyping) {
+                startTyping();
+            }
+            updateWordHighlighting(e.target.value);
+        });
+
+        resetBtn.addEventListener('click', init);
+        timeSelect.addEventListener('change', init);
+        difficultySelect.addEventListener('change', init);
+        increaseTextBtn.addEventListener('click', () => adjustTextSize('increase'));
+        decreaseTextBtn.addEventListener('click', () => adjustTextSize('decrease'));
+
+        // Initialize on load
+        init();
+    </script>
+</body>
+</html>
