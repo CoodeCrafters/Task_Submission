@@ -26,16 +26,17 @@
         }
         
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f0f2f5;
-            color: var(--dark);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 2rem;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    font-family: 'Poppins', sans-serif;
+    background: url('https://png.pngtree.com/thumb_back/fh260/background/20230526/pngtree-computer-keyboard-with-all-alphabet-symbols-and-the-phrase-qq-image_2635188.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #1a1a1a;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
         }
+
         
         .container {
             width: 100%;
@@ -262,11 +263,24 @@
         }
         
         footer {
-            text-align: center;
-            color: var(--gray-dark);
-            font-size: 0.9rem;
-            margin-top: auto;
-        }
+    text-align: center;
+    color: #00ffff;
+    font-size: 0.9rem;
+    margin-top: auto;
+    background-color: #111; /* dark background for neon contrast */
+    padding: 1rem 2rem;
+    border-radius: 15px; /* curved corners */
+    width: fit-content;
+    margin: 1rem auto 0.325rem auto;
+    text-shadow:
+        0 0 5px #00ffff,
+        0 0 10px #00ffff,
+        0 0 20px #00ffff,
+        0 0 40px #0ff,
+        0 0 80px #0ff;
+    box-shadow: 0 0 20px #00ffff88;
+}
+
         
         @media (max-width: 768px) {
             body {
