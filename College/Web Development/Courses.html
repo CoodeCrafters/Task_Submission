@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Courses</title>
+    <style>
+    /* Styles for a better exam environment */
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #1E1E1E;
+        color: #FFF;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        height: 100vh;
+        overflow-y: auto;
+    }
+
+    .light-theme {
+        background-color: #FFF;
+        color: #000;
+    }
+
+    .quiz-container {
+        max-width: 90%;
+        width: 100%;
+        background-color: #2C2C2C;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+        transition: all 0.3s ease;
+        border: 1px solid #4CAF50;
+        overflow-y: auto;
+        max-height: 80vh;
+    }
+
+    .light-theme .quiz-container {
+        background-color: #F0F0F0;
+        color: #000;
+        border: 1px solid #4CAF50;
+    }
+
+    .controls {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .btn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #45a049;
+    }
+
+    /* Dark Theme for Question */
+    .question {
+        margin: 20px 0;
+        padding: 10px;
+        background-color: #3A3A3A; /* Dark theme color */
+        border-radius: 5px;
+    }
+
+    /* Light Theme for Question */
+    .light-theme .question {
+        background-color: #87CEEB; /* Sky blue for light theme */
+    }
+
+    .options {
+        margin-bottom: 15px;
+        padding: 5px;
+    }
+
+    .timer {
+        font-size: 24px;
+        margin: 20px 0;
+        text-align: center;
+        position: relative;
+        width: 100px;
+        height: 100px;
+        border: 10px solid #4CAF50;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px auto;
+    }
+
+    .clock-timer {
+        font-size: 20px;
+        color: #4CAF50;
+    }
+
+    .submit-btn {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .quiz-info {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .result {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .back-btn {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .selected-option {
+        background-color: #c0e4fc;
+        border: 2px solid #008cba;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 480px) {
+        .btn {
+            width: 100%;
+        }
+
+        .timer {
+            width: 80px;
+            height: 80px;
+        }
+
+        .clock-timer {
+            font-size: 18px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="controls" id="quizControls">
+    <label for="themeToggle">Light Theme</label>
+    <input type="checkbox" id="themeToggle">
+    <button class="btn" onclick="increaseFontSize()">A+</button>
+    <button class="btn" onclick="decreaseFontSize()">A-</button>
+    <button class="btn" id="startQuizBtn" onclick="startQuiz()">Start Quiz</button>
+</div>
+
+<div class="quiz-container" id="quizContainer">
+    <div class="quiz-info">
+        <h1>Please Select a Quiz from the Options Below</h1>
+        <p>Choose a quiz to get started and test your knowledge:</p>
+        <select id="quizSelector" onchange="fetchQuizData(this.value)">
+            <option value="" disabled selected>Select Quiz</option>
+            <option value="1">Quiz 1</option>
+            <option value="2">Quiz 2</option>
+            <option value="3">Quiz 3</option>
+            <option value="4">Quiz 4</option>
+            <option value="5">Quiz 5</option>
+            <option value="6">Quiz 6</option>
+            <option value="7">Quiz 7</option>
+            
+            <!-- Add more quizzes as needed -->
+        </select>
+    </div>
+
+
+
+    <div id="quizSection" style="display:none;">
+        <div class="timer">
+            <span id="countdown" class="clock-timer"></span>
+        </div>
+        <div id="questionsContainer"></div>
+        <div class="submit-btn">
+            <button class="btn" onclick="submitQuiz()">Submit Quiz</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let timeLeft = 15 * 60; // 15 minutes in seconds
+    let countdownInterval;
+    let quizData;
+    let quizStarted = false;
+
+    // Disable all keyboard inputs
+    function disableKeys() {
+        document.addEventListener('keydown', function(event) {
+            // Disable Escape key, function keys, and Ctrl, Alt, Windows keys
+            if (event.key === 'Escape' || event.key.startsWith('F') || event.ctrlKey || event.altKey || event.metaKey) {
+                event.preventDefault();
+            }
+        });
+
+        document.addEventListener('contextmenu', (event) => event.preventDefault());
+    }
+
+    // Detect tab change
+    window.addEventListener("blur", function() {
+        if (quizStarted) {
+            submitQuiz();
+        }
+    });
+
+    // Theme and font size toggle
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('change', function() {
+        document.body.classList.toggle('light-theme', themeToggle.checked);
+    });
+
+    function increaseFontSize() {
+        document.body.style.fontSize = 'larger';
+    }
+
+    function decreaseFontSize() {
+        document.body.style.fontSize = 'smaller';
+    }
+
+    // Fetch quiz data based on selected quiz
+    function fetchQuizData(quizId) {
+    const quizURL = `quiz${quizId}.json`;
+    fetch(quizURL)
+        .then(response => response.json())
+        .then(data => {
+            // Store quiz data with a specific key for each quiz
+            sessionStorage.setItem(`quizData_${quizId}`, JSON.stringify(data));
+            console.log(`Quiz ${quizId} data stored in session storage`);
+        })
+        .catch(error => console.error('Error fetching quiz data:', error));
+}
+
+
+    // startQuiz function with dynamic time for each quiz
+function startQuiz() {
+    // Get the selected quiz ID
+    const selectedQuizId = document.getElementById('quizSelector').value;
+    
+    // Set timeLeft based on selected quiz
+    switch (selectedQuizId) {
+        case '1':
+        case '2':
+        case '5':    
+            timeLeft = 30 * 60; // 30 minutes in seconds for Quiz 1 and Quiz 2
+            break;
+        case '3':
+        case '4':
+            timeLeft = 15 * 60; // 15 minutes in seconds for Quiz 3 and Quiz 4
+            break;
+        default:
+            timeLeft = 15 * 60; // Default to 15 minutes if no quiz is selected
+    }
+
+    // Retrieve the quiz data from sessionStorage
+    const quizData = sessionStorage.getItem(`quizData_${selectedQuizId}`);
+    
+    if (!quizData) {
+        alert("Error: No quiz data available. Please select a quiz first and ensure the data is loaded.");
+        return;
+    }
+
+    // Hide quiz controls once the quiz starts
+    document.getElementById('quizControls').style.display = 'none';
+    document.getElementById('quizSection').style.display = 'block';
+    openFullscreen();
+    displayQuiz(); // Display the quiz questions
+    startCountdown(); // Start the countdown timer
+    quizStarted = true;
+
+    // Disable all keys permanently during the quiz
+    disableKeys();
+}
+
+    function startCountdown() {
+    const quizDuration = timeLeft; // Set dynamically based on the selected quiz
+    countdownInterval = setInterval(() => {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        document.getElementById('countdown').textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+
+        const percentage = (timeLeft / quizDuration) * 100;
+        document.querySelector('.timer').style.border = `conic-gradient(#4CAF50 ${percentage}%, transparent ${percentage}%)`;
+
+        if (timeLeft <= 0) {
+            clearInterval(countdownInterval);
+            submitQuiz();
+        }
+        timeLeft--;
+    }, 1000);
+}
+
+
+    function displayQuiz() {
+    const selectedQuizId = document.getElementById('quizSelector').value;
+    const quizData = JSON.parse(sessionStorage.getItem(`quizData_${selectedQuizId}`)) || {};
+    
+    const questionsContainer = document.getElementById('questionsContainer');
+    let quizHTML = '';
+
+    for (const topic in quizData) {
+        quizHTML += `<h2>${topic}</h2>`;
+        quizData[topic].forEach((questionObj, index) => {
+            quizHTML += `
+                <div class="question">
+                    <div class="question-text">${questionObj.question}</div>
+                    ${questionObj.options.map((option, i) => `
+                        <div class="options">
+                            <input type="radio" name="question${index}" value="${option}" id="option${index}${i}">
+                            <label for="option${index}${i}">${option}</label>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        });
+    }
+
+    questionsContainer.innerHTML = quizHTML;
+}
+
+    function submitQuiz() {
+    clearInterval(countdownInterval);
+    let score = 0;
+    let totalQuestions = 0;
+    const userAnswers = [];
+
+    const selectedQuizId = document.getElementById('quizSelector').value;
+    const quizData = JSON.parse(sessionStorage.getItem(`quizData_${selectedQuizId}`)) || {};
+
+    for (const topic in quizData) {
+        quizData[topic].forEach((questionObj, index) => {
+            const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+            const correctAnswer = questionObj.correctAnswer;
+
+            if (selectedOption) {
+                userAnswers.push({
+                    question: questionObj.question,
+                    userAnswer: selectedOption.value,
+                    correctAnswer: correctAnswer
+                });
+                totalQuestions++;
+
+                // Check if the answer is correct
+                if (selectedOption.value === correctAnswer) {
+                    score++;
+                }
+            } else {
+                // If no answer is selected, push an empty answer
+                userAnswers.push({
+                    question: questionObj.question,
+                    userAnswer: "No Answer",
+                    correctAnswer: correctAnswer
+                });
+            }
+        });
+    }
+
+    displayResults(userAnswers, score, totalQuestions);
+}
+
+function displayResults(userAnswers, score, totalQuestions) {
+    const resultsContainer = document.createElement('div');
+    resultsContainer.classList.add('result');
+
+    const resultText = document.createElement('h2');
+    resultText.textContent = `You scored ${score} out of ${totalQuestions}`;
+    resultsContainer.appendChild(resultText);
+
+    userAnswers.forEach((answer, index) => {
+        const answerText = document.createElement('p');
+        answerText.innerHTML = `
+            <strong>Question ${index + 1}:</strong> ${answer.question}<br>
+            <strong>Your Answer:</strong> ${answer.userAnswer}<br>
+            <strong>Correct Answer:</strong> ${answer.correctAnswer}<br>
+            <strong>Explanation:</strong> ${answer.explanation ? answer.explanation : 'N/A'}  <!-- Display N/A if explanation is empty -->`;
+        resultsContainer.appendChild(answerText);
+    });
+
+    const backBtn = document.createElement('button');
+    backBtn.classList.add('btn');
+    backBtn.textContent = 'Back to Courses';
+    backBtn.onclick = () => location.reload();
+    resultsContainer.appendChild(backBtn);
+
+    document.getElementById('quizContainer').innerHTML = ''; // Clear previous content
+    document.getElementById('quizContainer').appendChild(resultsContainer);
+}
+      
+    // Fullscreen function
+    function openFullscreen() {
+        const elem = document.documentElement;
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.mozRequestFullScreen) {
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) {
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+            elem.msRequestFullscreen();
+        }
+    }
+
+    function renderQuestion(question, index) {
+    const questionContainer = document.createElement('div');
+    questionContainer.classList.add('question-container');
+
+    const questionText = document.createElement('h3');
+    questionText.textContent = `${index + 1}. ${question.question}`;
+    questionContainer.appendChild(questionText);
+
+    question.options.forEach((option, optionIndex) => {
+        const optionButton = document.createElement('button');
+        optionButton.textContent = option;
+        optionButton.classList.add('option-button');
+        
+        // Check if this option was previously selected by the user
+        if (userAnswers[index] === option) {
+            optionButton.classList.add('selected-option');
+        }
+
+        // Handle option selection
+        optionButton.addEventListener('click', () => {
+            // Remove highlight from all options for this question
+            const allOptions = questionContainer.querySelectorAll('.option-button');
+            allOptions.forEach(button => button.classList.remove('selected-option'));
+            
+            // Highlight the selected option
+            optionButton.classList.add('selected-option');
+
+            // Store the user's selected answer
+            userAnswers[index] = option;
+        });
+
+        questionContainer.appendChild(optionButton);
+    });
+
+    return questionContainer;
+}
+
+    // Save user answers to session storage
+sessionStorage.setItem('userAnswers', JSON.stringify(userAnswers));
+
+// Retrieve user answers from session storage
+const savedAnswers = JSON.parse(sessionStorage.getItem('userAnswers')) || [];
+
+
+</script>
+
+</body>
+</html>

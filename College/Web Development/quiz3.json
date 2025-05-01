@@ -1,0 +1,334 @@
+{
+  "Set Theory Problems": [
+    {
+      "serial": 1,
+      "question": "If A = {1, 2, 3} and B = {3, 4, 5}, what is A ∪ B?",
+      "options": [
+        "{1, 2, 3, 4, 5}",
+        "{3}",
+        "{1, 2, 5}",
+        "{1, 2, 4}"
+      ],
+      "correctAnswer": "{1, 2, 3, 4, 5}"
+    },
+    {
+      "serial": 2,
+      "question": "If A = {1, 2, 3} and B = {3, 4, 5}, what is A ∩ B?",
+      "options": [
+        "{3}",
+        "{1, 2, 3, 4, 5}",
+        "{1, 2}",
+        "{}"
+      ],
+      "correctAnswer": "{3}"
+    },
+    {
+      "serial": 3,
+      "question": "If U = {1, 2, 3, 4, 5} and A = {2, 3}, what is A' (complement of A)?",
+      "options": [
+        "{1, 4, 5}",
+        "{2, 3}",
+        "{1, 2}",
+        "{}"
+      ],
+      "correctAnswer": "{1, 4, 5}"
+    },
+    {
+      "serial": 4,
+      "question": "If A = {1, 2, 3, 4} and B = {2, 4, 6}, what is A − B?",
+      "options": [
+        "{1, 3}",
+        "{2, 4}",
+        "{1, 6}",
+        "{}"
+      ],
+      "correctAnswer": "{1, 3}"
+    },
+    {
+      "serial": 5,
+      "question": "If A ⊆ B and A = {1, 2}, which of the following could be B?",
+      "options": [
+        "{1, 2, 3}",
+        "{1}",
+        "{3, 4}",
+        "{}"
+      ],
+      "correctAnswer": "{1, 2, 3}"
+    },
+    {
+      "serial": 6,
+      "question": "If A = {a, b} and B = {1, 2}, what is the Cartesian product A × B?",
+      "options": [
+        "{(a,1), (a,2), (b,1), (b,2)}",
+        "{(1,a), (2,b)}",
+        "{(a,b), (1,2)}",
+        "{(a,1), (b,2)}"
+      ],
+      "correctAnswer": "{(a,1), (a,2), (b,1), (b,2)}"
+    },
+    {
+      "serial": 7,
+      "question": "What is the power set of {1, 2}?",
+      "options": [
+        "{{}, {1}, {2}, {1, 2}}",
+        "{{1, 2}}",
+        "{{1}, {2}}",
+        "{{1}, {1, 2}}"
+      ],
+      "correctAnswer": "{{}, {1}, {2}, {1, 2}}"
+    },
+    {
+      "serial": 8,
+      "question": "What is the cardinality of the power set of a set with 3 elements?",
+      "options": [
+        "8",
+        "3",
+        "6",
+        "4"
+      ],
+      "correctAnswer": "8"
+    },
+    {
+      "serial": 9,
+      "question": "If A = {1, 2, 3, 4} and B = {3, 4, 5, 6}, what is A Δ B (symmetric difference)?",
+      "options": [
+        "{1, 2, 5, 6}",
+        "{3, 4}",
+        "{1, 2, 3, 4}",
+        "{5, 6}"
+      ],
+      "correctAnswer": "{1, 2, 5, 6}"
+    },
+    {
+      "serial": 10,
+      "question": "In a universal set U = {1, 2, 3, 4, 5, 6} and A = {2, 4}, what is (A') ∩ {1, 2, 3, 4}?",
+      "options": [
+        "{1, 3}",
+        "{2, 4}",
+        "{5, 6}",
+        "{1, 2, 3, 4}"
+      ],
+      "correctAnswer": "{1, 3}"
+    },
+    {
+      "serial": 11,
+      "question": "If A = {a, b, c} and B = {c, d, e}, what is (A ∪ B)' in U = {a, b, c, d, e, f}?",
+      "options": [
+        "{f}",
+        "{a, b, d, e, f}",
+        "{}",
+        "{d, e, f}"
+      ],
+      "correctAnswer": "{f}"
+    },
+    {
+      "serial": 12,
+      "question": "Which of the following sets is infinite?",
+      "options": [
+        "The set of all integers",
+        "The set of natural numbers less than 10",
+        "The set of vowels",
+        "The set {1, 2, 3}"
+      ],
+      "correctAnswer": "The set of all integers"
+    },
+    {
+      "serial": 13,
+      "question": "If A = {x | x is an even number greater than 0}, which of the following is true?",
+      "options": [
+        "A is an infinite set",
+        "A is a finite set",
+        "A is an empty set",
+        "A has 10 elements"
+      ],
+      "correctAnswer": "A is an infinite set"
+    },
+    {
+      "serial": 14,
+      "question": "If A = {1, 2, 3} and B = {3, 4, 5}, which of the following is true?",
+      "options": [
+        "A ∩ B ≠ {}",
+        "A ⊆ B",
+        "A ∪ B = {}",
+        "A ∩ B = {}"
+      ],
+      "correctAnswer": "A ∩ B ≠ {}"
+    },
+    {
+      "serial": 15,
+      "question": "If A = {2, 4, 6, 8} and B = {4, 8, 12}, what is A ∩ B?",
+      "options": [
+        "{4, 8}",
+        "{2, 6}",
+        "{12}",
+        "{6, 12}"
+      ],
+      "correctAnswer": "{4, 8}"
+    },
+    {
+      "serial": 16,
+      "question": "If A and B are disjoint sets, what is A ∩ B?",
+      "options": [
+        "{}",
+        "A ∪ B",
+        "A",
+        "B"
+      ],
+      "correctAnswer": "{}"
+    },
+    {
+      "serial": 17,
+      "question": "What is the complement of the universal set U?",
+      "options": [
+        "{}",
+        "U",
+        "A",
+        "B"
+      ],
+      "correctAnswer": "{}"
+    },
+    {
+      "serial": 18,
+      "question": "If A = {1, 2, 3} and B = {3, 4, 5}, what is (A ∩ B)' in the universal set U = {1, 2, 3, 4, 5}?",
+      "options": [
+        "{1, 2, 4, 5}",
+        "{1, 2, 3}",
+        "{3}",
+        "{}"
+      ],
+      "correctAnswer": "{1, 2, 4, 5}"
+    },
+    {
+      "serial": 19,
+      "question": "The set of natural numbers is denoted by which symbol?",
+      "options": [
+        "N",
+        "Z",
+        "Q",
+        "R"
+      ],
+      "correctAnswer": "N"
+    },
+    {
+      "serial": 20,
+      "question": "Which of the following sets is uncountable?",
+      "options": [
+        "The set of real numbers",
+        "The set of rational numbers",
+        "The set of integers",
+        "The set of prime numbers"
+      ],
+      "correctAnswer": "The set of real numbers"
+    },
+    {
+      "serial": 21,
+      "question": "If A = {1, 2, 3}, B = {2, 3, 4}, and C = {3, 4, 5}, what is (A ∩ B) ∩ C?",
+      "options": [
+        "{3}",
+        "{1, 2, 3}",
+        "{2, 4}",
+        "{4}"
+      ],
+      "correctAnswer": "{3}"
+    },
+    {
+      "serial": 22,
+      "question": "What is the cardinality of the set A = {1, 2, 3, 4}?",
+      "options": [
+        "4",
+        "2",
+        "1",
+        "3"
+      ],
+      "correctAnswer": "4"
+    },
+    {
+      "serial": 23,
+      "question": "If A = {x | x is a prime number less than 10}, what is A?",
+      "options": [
+        "{2, 3, 5, 7}",
+        "{2, 4, 6, 8}",
+        "{1, 3, 5}",
+        "{2, 3, 7, 11}"
+      ],
+      "correctAnswer": "{2, 3, 5, 7}"
+    },
+    {
+      "serial": 24,
+      "question": "If A = {1, 2, 3} and B = {3, 4, 5}, what is A − B?",
+      "options": [
+        "{1, 2}",
+        "{3}",
+        "{4, 5}",
+        "{}"
+      ],
+      "correctAnswer": "{1, 2}"
+    },
+    {
+      "serial": 25,
+      "question": "If U = {1, 2, 3, 4, 5, 6}, A = {2, 4}, and B = {1, 4, 5}, what is A ∪ B?",
+      "options": [
+        "{1, 2, 4, 5}",
+        "{2, 4}",
+        "{1, 4, 5}",
+        "{}"
+      ],
+      "correctAnswer": "{1, 2, 4, 5}"
+    },
+    {
+      "serial": 26,
+      "question": "The empty set is denoted by which symbol?",
+      "options": [
+        "Ø",
+        "{}",
+        "∅",
+        "{0}"
+      ],
+      "correctAnswer": "Ø"
+    },
+    {
+      "serial": 27,
+      "question": "If A = {1, 2, 3, 4} and B = {2, 3}, what is A − B?",
+      "options": [
+        "{1, 4}",
+        "{2, 3}",
+        "{1, 2, 3}",
+        "{1, 2, 3, 4}"
+      ],
+      "correctAnswer": "{1, 4}"
+    },
+    {
+      "serial": 28,
+      "question": "If A = {1, 2, 3} and B = {4, 5, 6}, what is A ∩ B?",
+      "options": [
+        "{}",
+        "{1, 2}",
+        "{4, 5, 6}",
+        "{1, 2, 3}"
+      ],
+      "correctAnswer": "{}"
+    },
+    {
+      "serial": 29,
+      "question": "Which of the following is a subset of every set?",
+      "options": [
+        "Ø (the empty set)",
+        "{0}",
+        "The universal set",
+        "{1, 2}"
+      ],
+      "correctAnswer": "Ø (the empty set)"
+    },
+    {
+      "serial": 30,
+      "question": "If A = {1, 2, 3} and B = {1, 2, 3, 4, 5}, which of the following is true?",
+      "options": [
+        "A ⊆ B",
+        "A = B",
+        "A ⊇ B",
+        "B ⊆ A"
+      ],
+      "correctAnswer": "A ⊆ B"
+    }
+  ]
+}

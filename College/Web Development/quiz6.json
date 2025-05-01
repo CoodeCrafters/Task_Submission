@@ -1,0 +1,169 @@
+{
+  "Quadratic Equation Practical Life Problems": [
+    {
+      "serial": 1,
+      "question": "A rectangular garden has a length that is 2 meters longer than its width. If the area of the garden is 48 square meters, find the dimensions of the garden.",
+      "options": [
+        "Length = 8 m, Width = 6 m",
+        "Length = 10 m, Width = 8 m",
+        "Length = 12 m, Width = 6 m",
+        "Length = 6 m, Width = 8 m"
+      ],
+      "correctAnswer": "Length = 8 m, Width = 6 m"
+    },
+    {
+      "serial": 2,
+      "question": "A ball is thrown upward from a height of 5 meters. The height of the ball after t seconds is given by the equation H(t) = -4.9t^2 + 5. Find the time when the ball reaches the ground.",
+      "options": [
+        "t = 1 s",
+        "t = 2 s",
+        "t = 5 s",
+        "t = 4 s"
+      ],
+      "correctAnswer": "t = 1 s"
+    },
+    {
+      "serial": 3,
+      "question": "The profit from selling x items can be modeled by the equation P(x) = -2x^2 + 12x - 10. Find the number of items that should be sold to maximize profit.",
+      "options": [
+        "1 item",
+        "3 items",
+        "4 items",
+        "5 items"
+      ],
+      "correctAnswer": "3 items"
+    },
+    {
+      "serial": 4,
+      "question": "The height of a projectile is modeled by the equation H(t) = -16t^2 + 32t + 48. How long does it take for the projectile to hit the ground?",
+      "options": [
+        "t = 1 s",
+        "t = 2 s",
+        "t = 3 s",
+        "t = 4 s"
+      ],
+      "correctAnswer": "t = 4 s"
+    },
+    {
+      "serial": 5,
+      "question": "A rectangular swimming pool is twice as long as it is wide. If the area of the pool is 200 square meters, find the dimensions of the pool.",
+      "options": [
+        "Length = 20 m, Width = 10 m",
+        "Length = 15 m, Width = 7.5 m",
+        "Length = 25 m, Width = 12.5 m",
+        "Length = 10 m, Width = 5 m"
+      ],
+      "correctAnswer": "Length = 20 m, Width = 10 m"
+    },
+    {
+      "serial": 6,
+      "question": "A company manufactures a product at a cost given by C(x) = 3x^2 - 12x + 48. Find the number of units that must be produced to minimize cost.",
+      "options": [
+        "2 units",
+        "3 units",
+        "4 units",
+        "5 units"
+      ],
+      "correctAnswer": "2 units"
+    },
+    {
+      "serial": 7,
+      "question": "A rectangular field has an area of 1200 square meters. If the length of the field is 10 meters more than its width, find the dimensions of the field.",
+      "options": [
+        "Length = 40 m, Width = 30 m",
+        "Length = 50 m, Width = 20 m",
+        "Length = 30 m, Width = 20 m",
+        "Length = 45 m, Width = 25 m"
+      ],
+      "correctAnswer": "Length = 40 m, Width = 30 m"
+    },
+    {
+      "serial": 8,
+      "question": "A car's value decreases over time according to the equation V(t) = -500t^2 + 6000t + 20000. Find the time when the car's value becomes zero.",
+      "options": [
+        "t = 20 years",
+        "t = 10 years",
+        "t = 15 years",
+        "t = 5 years"
+      ],
+      "correctAnswer": "t = 20 years"
+    },
+    {
+      "serial": 9,
+      "question": "The area of a triangle is given by the formula A = 1/2 * base * height. If the area is 50 square meters and the base is 10 meters, find the height using the quadratic equation.",
+      "options": [
+        "Height = 10 m",
+        "Height = 5 m",
+        "Height = 15 m",
+        "Height = 8 m"
+      ],
+      "correctAnswer": "Height = 10 m"
+    },
+    {
+      "serial": 10,
+      "question": "The height of a basketball thrown can be modeled by H(t) = -4.9t^2 + 14t + 1. When does the basketball hit the ground?",
+      "options": [
+        "t = 1 s",
+        "t = 2 s",
+        "t = 3 s",
+        "t = 4 s"
+      ],
+      "correctAnswer": "t = 3 s"
+    },
+    {
+      "serial": 11,
+      "question": "A gardener wants to create a rectangular flower bed with a total area of 100 square meters. If the length is 5 meters longer than the width, find the dimensions of the flower bed.",
+      "options": [
+        "Length = 15 m, Width = 10 m",
+        "Length = 20 m, Width = 5 m",
+        "Length = 12 m, Width = 8 m",
+        "Length = 10 m, Width = 10 m"
+      ],
+      "correctAnswer": "Length = 15 m, Width = 10 m"
+    },
+    {
+      "serial": 12,
+      "question": "A water tank is in the shape of a cylinder. If the volume of the tank is given by V = πr^2h and the height is 10 meters, find the radius when the volume is 200 cubic meters.",
+      "options": [
+        "r = 2 m",
+        "r = 3 m",
+        "r = 4 m",
+        "r = 5 m"
+      ],
+      "correctAnswer": "r = 3 m"
+    },
+    {
+      "serial": 13,
+      "question": "A baseball is thrown upward from a height of 1.5 meters. The height after t seconds is given by H(t) = -4.9t^2 + 1.5. When will the baseball hit the ground?",
+      "options": [
+        "t = 0.5 s",
+        "t = 1 s",
+        "t = 2 s",
+        "t = 3 s"
+      ],
+      "correctAnswer": "t = 1 s"
+    },
+    {
+      "serial": 14,
+      "question": "A rectangular box has a length that is 4 centimeters longer than its width. If the volume of the box is 48 cubic centimeters, find the dimensions of the box.",
+      "options": [
+        "Length = 8 cm, Width = 4 cm",
+        "Length = 6 cm, Width = 2 cm",
+        "Length = 10 cm, Width = 6 cm",
+        "Length = 12 cm, Width = 8 cm"
+      ],
+      "correctAnswer": "Length = 8 cm, Width = 4 cm"
+    },
+    {
+      "serial": 15,
+      "question": "A farmer has a rectangular piece of land that is 10 meters longer than it is wide. If the area of the land is 200 square meters, find the dimensions of the land.",
+      "options": [
+        "Length = 20 m, Width = 10 m",
+        "Length = 25 m, Width = 15 m",
+        "Length = 30 m, Width = 20 m",
+        "Length = 15 m, Width = 10 m"
+      ],
+      "correctAnswer": "Length = 20 m, Width = 10 m"
+    }
+  ]
+}
