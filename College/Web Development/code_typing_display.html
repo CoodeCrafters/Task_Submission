@@ -10,19 +10,31 @@
             padding: 20px;
             font-family: Arial, sans-serif;
             background: #000000;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
+            padding: 0 10px;
+        }
+        #editor-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0; /* Fix for Firefox */
         }
         #container {
-            width: 100%;
-            height: 80vh;
-            border: 1px solid #ddd;
+            flex: 1;
+            border: 1px solid #444;
             border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            overflow: hidden;
+            position: relative;
+            background: #1e1e1e;
         }
         .copy-btn {
             background: #4CAF50;
@@ -32,21 +44,40 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 14px;
+            transition: all 0.2s;
         }
         .copy-btn:hover {
             background: #45a049;
+            transform: translateY(-1px);
+        }
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+        .copy-btn:disabled {
+            background: #555;
+            cursor: not-allowed;
         }
         .title {
             font-size: 24px;
-            color: #333;
+            color: #fff;
+            margin: 0;
         }
         .loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%;
             font-size: 18px;
-            color: #666;
+            color: #aaa;
+            background: #1e1e1e;
+            z-index: 10;
+        }
+        .error {
+            color: #ff5555;
         }
     </style>
 </head>
@@ -55,8 +86,11 @@
         <h1 class="title">Typing Test HTML Code</h1>
         <button id="copyBtn" class="copy-btn" disabled>Copy Code</button>
     </div>
-    <div id="container">
-        <div class="loading">Loading typing-test.html...</div>
+    
+    <div id="editor-container">
+        <div id="container">
+            <div class="loading" id="loadingIndicator">Loading typing_test.html...</div>
+        </div>
     </div>
 
     <!-- Load Monaco Editor -->
@@ -71,66 +105,98 @@
 
         // Function to load external file
         async function loadExternalFile(url) {
+            const loadingIndicator = document.getElementById('loadingIndicator');
             try {
+                loadingIndicator.textContent = "Loading file...";
                 const response = await fetch(url);
+                
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                return await response.text();
+                
+                const content = await response.text();
+                
+                // Basic validation
+                if (!content.includes('<html') && !content.includes('<!DOCTYPE')) {
+                    throw new Error("File doesn't appear to be valid HTML");
+                }
+                
+                return content;
             } catch (error) {
                 console.error('Error loading file:', error);
-                document.getElementById('container').innerHTML = 
-                    `<div class="loading" style="color: #d32f2f;">Error loading file: ${error.message}</div>`;
+                loadingIndicator.classList.add('error');
+                loadingIndicator.innerHTML = `Error loading file:<br>${error.message}`;
                 return null;
             }
         }
 
         // Initialize Monaco Editor with external file
         async function initializeEditor() {
-            // First load Monaco
-            await new Promise((resolve) => {
-                require(['vs/editor/editor.main'], resolve);
-            });
+            const container = document.getElementById('container');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            
+            try {
+                // First load Monaco
+                loadingIndicator.textContent = "Loading editor...";
+                await new Promise((resolve) => {
+                    require(['vs/editor/editor.main'], resolve);
+                });
 
-            // Then load our external file
-            const fileContent = await loadExternalFile('typing_test.html');
-            if (!fileContent) return;
+                // Then load our external file
+                loadingIndicator.textContent = "Loading content...";
+                const fileContent = await loadExternalFile('typing_test.html');
+                if (!fileContent) return;
 
-            // Create editor instance
-            const editor = monaco.editor.create(document.getElementById('container'), {
-                value: fileContent,
-                language: 'html',
-                theme: 'vs-dark',
-                automaticLayout: true,
-                readOnly: true,
-                minimap: { enabled: false },
-                fontSize: 14,
-                lineNumbers: 'on',
-                scrollBeyondLastLine: false,
-                renderWhitespace: 'none',
-                wordWrap: 'on'
-            });
+                // Create editor instance
+                loadingIndicator.textContent = "Initializing editor...";
+                const editor = monaco.editor.create(container, {
+                    value: fileContent,
+                    language: 'html',
+                    theme: 'vs-dark',
+                    automaticLayout: true,
+                    readOnly: true,
+                    minimap: { enabled: false },
+                    fontSize: 14,
+                    lineNumbers: 'on',
+                    scrollBeyondLastLine: false,
+                    renderWhitespace: 'none',
+                    wordWrap: 'on'
+                });
 
-            // Enable copy button
-            const copyBtn = document.getElementById('copyBtn');
-            copyBtn.disabled = false;
-            copyBtn.addEventListener('click', function() {
-                const code = editor.getValue();
-                navigator.clipboard.writeText(code)
-                    .then(() => {
-                        copyBtn.textContent = 'Copied!';
-                        setTimeout(() => {
-                            copyBtn.textContent = 'Copy Code';
-                        }, 2000);
-                    })
-                    .catch(err => {
-                        console.error('Failed to copy: ', err);
-                        copyBtn.textContent = 'Error Copying';
-                        setTimeout(() => {
-                            copyBtn.textContent = 'Copy Code';
-                        }, 2000);
-                    });
-            });
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    editor.layout();
+                });
+
+                // Enable copy button
+                const copyBtn = document.getElementById('copyBtn');
+                copyBtn.disabled = false;
+                copyBtn.addEventListener('click', function() {
+                    const code = editor.getValue();
+                    navigator.clipboard.writeText(code)
+                        .then(() => {
+                            copyBtn.textContent = 'Copied!';
+                            setTimeout(() => {
+                                copyBtn.textContent = 'Copy Code';
+                            }, 2000);
+                        })
+                        .catch(err => {
+                            console.error('Failed to copy: ', err);
+                            copyBtn.textContent = 'Error Copying';
+                            setTimeout(() => {
+                                copyBtn.textContent = 'Copy Code';
+                            }, 2000);
+                        });
+                });
+
+                // Remove loading indicator
+                loadingIndicator.style.display = 'none';
+                
+            } catch (error) {
+                console.error('Editor initialization failed:', error);
+                loadingIndicator.classList.add('error');
+                loadingIndicator.innerHTML = `Initialization failed:<br>${error.message}`;
+            }
         }
 
         // Start the initialization
