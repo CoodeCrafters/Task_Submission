@@ -6,12 +6,20 @@ const axios = require('axios');
 const path = require('path');
 const cors = require('cors');
 
-const app = express();
+const app = express(); // Moved this up - was used before being declared
 const upload = multer({ dest: 'uploads/' });
 
 // Enable CORS for all origins
 app.use(cors());
 app.use(express.json());
+
+// --- Health Check Endpoint ---
+app.get('/welcome', (req, res) => {
+  res.json({ 
+    status: 'healthy',
+    timestamp: new Date().toISOString() 
+  });
+});
 
 app.post('/upload', upload.single('file'), async (req, res) => {
     const file = req.file;
@@ -48,6 +56,17 @@ app.post('/upload', upload.single('file'), async (req, res) => {
     }
 });
 
+// 🔁 Periodic Ping to Keep Service Awake
+setInterval(async () => {
+    try {
+        const pingRes = await axios.get('https://general-proficency.onrender.com/health');
+        console.log(`[Health Ping] ${new Date().toISOString()} - Status: ${pingRes.status}`);
+    } catch (err) {
+        console.error(`[Health Ping] Failed at ${new Date().toISOString()}:`, err.message);
+    }
+}, 2 * 60 * 1000); // Every 2 minutes
+
+// Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
