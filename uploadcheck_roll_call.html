@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General Proficiency-2 Activity</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --accent: #fd79a8;
+            --dark: #2d3436;
+            --darker: #1e272e;
+            --light: #f5f6fa;
+            --gap: 20px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--darker);
+            color: var(--light);
+            min-height: 100vh;
+            padding: 40px 20px;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .main-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .main-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .sub-heading {
+            font-size: 1.3rem;
+            color: var(--secondary);
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-top: 25px;
+        }
+        
+        .roll-call-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--gap);
+            justify-content: center;
+            max-width: 800px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+        
+        .roll-block {
+            background: linear-gradient(135deg, var(--dark), var(--darker));
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 25px;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--light);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            position: relative;
+            cursor: pointer;
+            animation: floatIn 0.6s ease-out backwards;
+        }
+        
+        .roll-block:hover {
+            transform: translateY(-8px) rotateX(15deg);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .roll-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.3), rgba(253, 121, 168, 0.2));
+            border-radius: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .roll-block:hover::before {
+            opacity: 1;
+        }
+        
+        .empty-block {
+            background: transparent;
+            border: 2px dashed var(--secondary);
+            color: var(--secondary);
+            opacity: 0.7;
+        }
+        
+        .empty-block:hover {
+            transform: none;
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes floatIn {
+            0% { opacity: 0; transform: translateY(30px) rotateX(90deg); }
+            100% { opacity: 1; transform: translateY(0) rotateX(0); }
+        }
+        
+        /* Individual block animations */
+        .roll-block:nth-child(1) { animation-delay: 0.1s; }
+        .roll-block:nth-child(2) { animation-delay: 0.2s; }
+        .roll-block:nth-child(3) { animation-delay: 0.3s; }
+        .roll-block:nth-child(4) { animation-delay: 0.4s; }
+        .roll-block:nth-child(5) { animation-delay: 0.5s; }
+        .roll-block:nth-child(6) { animation-delay: 0.6s; }
+        .roll-block:nth-child(7) { animation-delay: 0.7s; }
+        .roll-block:nth-child(8) { animation-delay: 0.8s; }
+        
+        /* Glow effect */
+        @keyframes glow {
+            0% { box-shadow: 0 0 10px var(--primary); }
+            50% { box-shadow: 0 0 20px var(--accent); }
+            100% { box-shadow: 0 0 10px var(--primary); }
+        }
+        
+        .glow {
+            animation: glow 2s infinite;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .main-heading {
+                font-size: 2rem;
+            }
+            .sub-heading {
+                font-size: 1.1rem;
+            }
+            .roll-block {
+                width: 60px;
+                height: 60px;
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="main-heading">General Proficiency-2</div>
+        <div class="sub-heading">Activity No 6: Resume Docx</div>
+    </div>
+    
+    <div class="roll-call-container">
+        <div class="roll-block">2</div>
+        <div class="roll-block">4</div>
+        <div class="roll-block glow">5</div>
+        <div class="roll-block empty-block"></div>
+        <div class="roll-block">9</div>
+        <div class="roll-block">10</div>
+        <div class="roll-block">21</div>
+        <div class="roll-block">22</div>
+    </div>
+
+    <script>
+        // Add interactive effects
+        document.querySelectorAll('.roll-block').forEach(block => {
+            block.addEventListener('click', function() {
+                this.classList.toggle('glow');
+            });
+            
+            // Add subtle floating animation
+            if(!block.classList.contains('empty-block')) {
+                block.style.animation = `floatIn 0.6s ease-out ${this.dataset.delay} backwards, float 3s ease-in-out infinite`;
+                block.style.animationDelay = `${this.dataset.delay}, ${Math.random() * 2}s`;
+            }
+        });
+        
+        // Add floating animation to header
+        const header = document.querySelector('.header');
+        setInterval(() => {
+            header.style.transform = `translateY(${Math.sin(Date.now() / 1000) * 3}px)`;
+        }, 50);
+    </script>
+</body>
+</html>
