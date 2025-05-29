@@ -263,28 +263,25 @@
         </div>
     </div>
 
-    <script>
-    // Set the deadline to tomorrow at 7:00 PM
-    const now = new Date();
-    const tomorrow = new Date(now);
-    tomorrow.setDate(now.getDate() + 1);
-    tomorrow.setHours(19, 0, 0, 0); // 7:00 PM
-    
+   <script>
+    // Set the fixed deadline: 29th May 2025, 7:00 PM
+    const deadline = new Date('2025-05-29T19:00:00');
+
     // Update the countdown every second
     const countdownTimer = setInterval(function() {
         const currentTime = new Date();
-        const diff = tomorrow - currentTime;
-        
+        const diff = deadline - currentTime;
+
         // Time calculations
         const hours = Math.floor(diff / (1000 * 60 * 60));
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        
+
         // Display the result
         document.getElementById('countdown-hours').textContent = hours.toString().padStart(2, '0');
         document.getElementById('countdown-minutes').textContent = minutes.toString().padStart(2, '0');
         document.getElementById('countdown-seconds').textContent = seconds.toString().padStart(2, '0');
-        
+
         // If the countdown is finished
         if (diff < 0) {
             clearInterval(countdownTimer);
@@ -292,7 +289,7 @@
             document.getElementById('countdown-minutes').textContent = '00';
             document.getElementById('countdown-seconds').textContent = '00';
             document.querySelector('.countdown-title').textContent = 'Submission Deadline Passed!';
-            
+
             // Disable the submit button if time expires
             document.getElementById('submitBtn').disabled = true;
             document.getElementById('submitBtn').style.backgroundColor = "#555"; // Gray it out
@@ -306,7 +303,7 @@
             document.getElementById('fileName').textContent = file.name;
             document.getElementById('fileSize').textContent = formatFileSize(file.size);
             document.getElementById('fileInfo').style.display = 'block';
-            
+
             // Show table and populate it
             document.getElementById('fileTable').style.display = 'block';
             const tableBody = document.getElementById('fileTableBody');
@@ -318,25 +315,26 @@
                     <td><span class="status-badge status-uploaded">Uploaded</span></td>
                 </tr>
             `;
-            
-            // Enable submit button (only if deadline hasn't passed)
+
+            // Enable submit button only if before deadline
             const currentTime = new Date();
-            const deadline = new Date();
-            deadline.setDate(currentTime.getDate() + 1);
-            deadline.setHours(19, 0, 0, 0); // Tomorrow 7 PM
-            
             if (currentTime < deadline) {
                 document.getElementById('submitBtn').disabled = false;
+            } else {
+                document.getElementById('submitBtn').disabled = true;
+                document.getElementById('submitBtn').style.backgroundColor = "#555";
             }
         }
     });
-    
+
     document.getElementById('submitBtn').addEventListener('click', function() {
         const fileInput = document.getElementById('fileInput');
-        if (fileInput.files.length > 0) {
+        const currentTime = new Date();
+
+        if (fileInput.files.length > 0 && currentTime < deadline) {
             const formData = new FormData();
             formData.append('resume', fileInput.files[0]);
-            
+
             fetch("https://general-proficency.onrender.com/upload", {
                 method: "POST",
                 body: formData,
@@ -345,7 +343,7 @@
             .then(data => {
                 alert("File submitted and uploaded to GitHub!");
                 console.log(data);
-                
+
                 // Reset the form
                 fileInput.value = '';
                 document.getElementById('fileInfo').style.display = 'none';
@@ -356,9 +354,13 @@
                 console.error("Upload error:", err);
                 alert("Something went wrong.");
             });
+        } else {
+            alert("Submission deadline has passed. You cannot submit now.");
+            this.disabled = true;
+            this.style.backgroundColor = "#555";
         }
     });
-    
+
     function formatFileSize(bytes) {
         if (bytes === 0) return '0 Bytes';
         const k = 1024;
@@ -367,5 +369,6 @@
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     }
 </script>
+
 </body>
 </html>
