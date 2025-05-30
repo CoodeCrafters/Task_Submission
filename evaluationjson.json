@@ -782,5 +782,61 @@
         "timestamp": "2025-05-30T19:57:22.220Z"
       }
     ]
+  },
+  {
+    "rollNo": "1",
+    "name": "Samruddhi Sunil Shinde",
+    "email": "samruddhi.shinde24@vit.edu",
+    "submissionDate": "2025-05-30T20:00:01.797Z",
+    "evaluations": [
+      {
+        "evaluator": "1",
+        "evaluated": "5",
+        "scores": {
+          "formatting": 9,
+          "clarity": 10,
+          "relevance": 19,
+          "skills": 9
+        },
+        "feedback": "",
+        "timestamp": "2025-05-30T19:59:11.077Z"
+      },
+      {
+        "evaluator": "1",
+        "evaluated": "15",
+        "scores": {
+          "formatting": 9,
+          "clarity": 9,
+          "relevance": 19,
+          "skills": 9
+        },
+        "feedback": "",
+        "timestamp": "2025-05-30T19:59:27.386Z"
+      },
+      {
+        "evaluator": "1",
+        "evaluated": "9",
+        "scores": {
+          "formatting": 10,
+          "clarity": 9,
+          "relevance": 19,
+          "skills": 9
+        },
+        "feedback": "",
+        "timestamp": "2025-05-30T19:59:41.585Z"
+      },
+      {
+        "evaluator": "1",
+        "evaluated": "17",
+        "scores": {
+          "formatting": 10,
+          "clarity": 9,
+          "relevance": 19,
+          "skills": 9
+        },
+        "feedback": "",
+        "timestamp": "2025-05-30T20:00:01.797Z"
+      }
+    ]
   }
 ]
