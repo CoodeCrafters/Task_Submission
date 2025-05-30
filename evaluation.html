@@ -376,245 +376,230 @@
     </footer>
     
     <script>
-        // Sample resume data
-        const resumes = {
-            "2": { name: "Student 2", files: ["Activity-6/roll_no_2.pdf"] },
-            "3": { name: "Student 3", files: ["Activity-6/roll_no_3.pdf"] },
-            "4": { name: "Student 4", files: ["Activity-6/roll_no_4.pdf"] },
-            "5": { name: "Student 5", files: ["Activity-6/roll_no_5.pdf"] },
-            "6": { name: "Student 6", files: ["Activity-6/roll_no_6.pdf"] },
-            "7": { name: "Student 7", files: ["Activity-6/roll_no_7.pdf"] },
-            "8": { name: "Student 8", files: ["Activity-6/roll_no_8.pdf"] },
-            "9": { name: "Student 9", files: ["Activity-6/roll_no_9.pdf"] },
-            "10": { name: "Student 10", files: ["Activity-6/roll_no_10.pdf"] },
-            "12": { name: "Student 12", files: ["Activity-6/roll_no_12.pdf"] },
-            "13": { name: "Student 13", files: ["Activity-6/roll_no_13.pdf"] },
-            "14": { name: "Student 14", files: ["Activity-6/roll_no_14.pdf"] },
-            "15": { name: "Student 15", files: ["Activity-6/roll_no_15.pdf"] },
-            "16": { name: "Student 16", files: ["Activity-6/roll_no_16.pdf"] },
-            "17": { name: "Student 17", files: ["Activity-6/roll_no_17.pdf"] },
-            "18": { name: "Student 18", files: ["Activity-6/roll_no_18.pdf"] },
-            "19": { name: "Student 19", files: ["Activity-6/roll_no_19.pdf"] },
-            "21": { name: "Student 21", files: ["Activity-6/roll_no_21.pdf"] },
-            "22": { name: "Student 22", files: ["Activity-6/roll_no_22.pdf"] },
-            "23": { name: "Student 23", files: ["Activity-6/roll_no_23.pdf"] },
-            "24": { name: "Student 24", files: ["Activity-6/roll_no_24.pdf"] },
-            "25": { name: "Student 25", files: ["Activity-6/roll_no_25.pdf"] }
-        };
+    const resumes = {
+        "2": { name: "Student 2", files: ["Activity-6/roll_no_2.pdf"] },
+        "3": { name: "Student 3", files: ["Activity-6/roll_no_3.pdf"] },
+        "4": { name: "Student 4", files: ["Activity-6/roll_no_4.pdf"] },
+        "5": { name: "Student 5", files: ["Activity-6/roll_no_5.pdf"] },
+        "6": { name: "Student 6", files: ["Activity-6/roll_no_6.pdf"] },
+        "7": { name: "Student 7", files: ["Activity-6/roll_no_7.pdf"] },
+        "8": { name: "Student 8", files: ["Activity-6/roll_no_8.pdf"] },
+        "9": { name: "Student 9", files: ["Activity-6/roll_no_9.pdf"] },
+        "10": { name: "Student 10", files: ["Activity-6/roll_no_10.pdf"] },
+        "12": { name: "Student 12", files: ["Activity-6/roll_no_12.pdf"] },
+        "13": { name: "Student 13", files: ["Activity-6/roll_no_13.pdf"] },
+        "14": { name: "Student 14", files: ["Activity-6/roll_no_14.pdf"] },
+        "15": { name: "Student 15", files: ["Activity-6/roll_no_15.pdf"] },
+        "16": { name: "Student 16", files: ["Activity-6/roll_no_16.pdf"] },
+        "17": { name: "Student 17", files: ["Activity-6/roll_no_17.pdf"] },
+        "18": { name: "Student 18", files: ["Activity-6/roll_no_18.pdf"] },
+        "19": { name: "Student 19", files: ["Activity-6/roll_no_19.pdf"] },
+        "21": { name: "Student 21", files: ["Activity-6/roll_no_21.pdf"] },
+        "22": { name: "Student 22", files: ["Activity-6/roll_no_22.pdf"] },
+        "23": { name: "Student 23", files: ["Activity-6/roll_no_23.pdf"] },
+        "24": { name: "Student 24", files: ["Activity-6/roll_no_24.pdf"] },
+        "25": { name: "Student 25", files: ["Activity-6/roll_no_25.pdf"] }
+    };
 
+    const assignments = {
+        "2": ["13", "5", "21", "8"],
+        "3": ["9", "24", "6", "12"],
+        "4": ["15", "17", "10", "22"],
+        "5": ["2", "16", "23", "13"],
+        "6": ["3", "25", "12", "7"],
+        "7": ["14", "9", "22", "5"],
+        "8": ["24", "2", "16", "15"],
+        "9": ["10", "3", "17", "19"],
+        "10": ["4", "6", "18", "8"],
+        "12": ["19", "6", "3", "25"],
+        "13": ["5", "16", "23", "4"],
+        "15": ["8", "17", "24", "21"],
+        "17": ["4", "25", "15", "14"],
+        "21": ["2", "15", "10", "8"],
+        "22": ["16", "24", "7", "4"],
+        "23": ["19", "5", "14", "13"],
+        "24": ["3", "21", "6", "17"]
+    };
 
-        // Assignment mapping
-        const assignments = {
-            "2": ["13", "5", "21", "8"],
-            "3": ["9", "24", "6", "12"],
-            "4": ["15", "17", "10", "22"],
-            "5": ["2", "16", "23", "13"],
-            "6": ["3", "25", "12", "7"],
-            "7": ["14", "9", "22", "5"],
-            "8": ["24", "2", "16", "15"],
-            "9": ["10", "3", "17", "19"],
-            "10": ["4", "6", "18", "8"],
-            "12": ["19", "6", "3", "25"],
-            "13": ["5", "16", "23", "4"],
-            "15": ["8", "17", "24", "21"],
-            "17": ["4", "25", "15", "14"],
-            "21": ["2", "15", "10", "8"],
-            "22": ["16", "24", "7", "4"],
-            "23": ["19", "5", "14", "13"],
-            "24": ["3", "21", "6", "17"]
-        };
+    let currentUser = null;
+    let evaluations = [];
 
-        // Store user data and evaluations
-        let currentUser = null;
-        let evaluations = [];
-        
-        // Function to validate marks input
-        function validateMarks(input, maxMarks) {
-            const value = parseInt(input.value);
-            if (isNaN(value) || value < 0 || value > maxMarks) {
-                input.classList.add('error');
-                return false;
-            } else {
-                input.classList.remove('error');
-                return true;
-            }
+    function validateMarks(input, maxMarks) {
+        const value = parseInt(input.value);
+        if (isNaN(value) || value < 0 || value > maxMarks) {
+            input.classList.add('error');
+            return false;
+        } else {
+            input.classList.remove('error');
+            return true;
         }
-        
-        // Function to submit evaluations to server
-        async function submitEvaluations(evaluationData) {
-            const endpoint = 'https://general-profiecny.com/evaluation';
-            
-            try {
-                // In a real implementation, you would use fetch() to send data
-                console.log('Submitting to:', endpoint);
-                console.log('Data:', evaluationData);
-                
-                // Simulate network delay
-                await new Promise(resolve => setTimeout(resolve, 1500));
-                
-                // For demo purposes, we'll just return a success message
-                return { status: 'success', message: 'Evaluations submitted successfully' };
-            } catch (error) {
-                console.error('Error submitting evaluations:', error);
-                throw error;
-            }
-        }
-        
-        // Signup form submission
-        document.getElementById('signupForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const rollNo = document.getElementById('rollNo').value;
-            const email = document.getElementById('email').value;
-            
-            currentUser = { name, rollNo, email };
-            evaluations = [];
-            
-            document.getElementById('signupSection').classList.add('hidden');
-            document.getElementById('evaluationSection').classList.remove('hidden');
-            document.getElementById('userName').textContent = name;
-            
-            const studentsToEvaluate = assignments[rollNo] || [];
-            const studentListElement = document.getElementById('studentList');
-            studentListElement.innerHTML = '';
-            
-            if (studentsToEvaluate.length === 0) {
-                studentListElement.innerHTML = '<p>No evaluation assignments found for your roll number.</p>';
-                return;
-            }
-            
-            studentsToEvaluate.forEach(rollNo => {
-                const student = resumes[rollNo];
-                if (!student) return;
-                
-                const studentElement = document.createElement('div');
-                studentElement.className = 'student-evaluation';
-                studentElement.innerHTML = `
-                    <h3>Evaluate ${student.name} (Roll No: ${rollNo})</h3>
-                    <div class="file-preview">
-                        <p>Resume Files:</p>
-                        <ul>
-                            ${student.files.map(file => 
-                                `<li><a href="${file}" class="file-link" target="_blank">${file}</a></li>`
-                            ).join('')}
-                        </ul>
-                    </div>
-                    <form class="evaluation-form" data-rollno="${rollNo}">
-                        <div class="criteria-grid">
-                            <div class="criteria-item">
-                                <label for="formatting-${rollNo}">Formatting and Layout (10):</label>
-                                <input type="number" id="formatting-${rollNo}" name="formatting" min="0" max="10" required>
-                                <div class="error-message"></div>
-                            </div>
-                            
-                            <div class="criteria-item">
-                                <label for="clarity-${rollNo}">Clarity and Language (10):</label>
-                                <input type="number" id="clarity-${rollNo}" name="clarity" min="0" max="10" required>
-                                <div class="error-message"></div>
-                            </div>
-                            
-                            <div class="criteria-item">
-                                <label for="relevance-${rollNo}">Relevance of Content (20):</label>
-                                <input type="number" id="relevance-${rollNo}" name="relevance" min="0" max="20" required>
-                                <div class="error-message"></div>
-                            </div>
-                            
-                            <div class="criteria-item">
-                                <label for="skills-${rollNo}">Skills and Achievements (10):</label>
-                                <input type="number" id="skills-${rollNo}" name="skills" min="0" max="10" required>
-                                <div class="error-message"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="feedback-${rollNo}">Feedback/Comments:</label>
-                            <textarea id="feedback-${rollNo}" name="feedback" rows="4"></textarea>
-                        </div>
-                        
-                        <button type="submit">Submit Evaluation</button>
-                    </form>
-                    <hr>
-                `;
-                
-                studentListElement.appendChild(studentElement);
+    }
+
+    async function submitEvaluations(evaluationData) {
+        const endpoint = 'https://general-profiecny.com/evaluation';
+        try {
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(evaluationData)
             });
-            
-            document.querySelectorAll('.evaluation-form').forEach(form => {
-                form.addEventListener('submit', async function(e) {
-                    e.preventDefault();
-                    
-                    let isValid = true;
-                    const inputs = this.querySelectorAll('input[type="number"]');
-                    
-                    inputs.forEach(input => {
-                        const max = parseInt(input.max);
-                        if (!validateMarks(input, max)) {
-                            isValid = false;
-                            input.nextElementSibling.textContent = `Please enter a value between 0 and ${max}`;
-                        } else {
-                            input.nextElementSibling.textContent = '';
-                        }
-                    });
-                    
-                    if (isValid) {
-                        const evaluatedRollNo = this.dataset.rollno;
-                        const feedback = this.querySelector('textarea').value;
-                        
-                        const evaluation = {
-                            evaluator: currentUser.rollNo,
-                            evaluated: evaluatedRollNo,
-                            scores: {
-                                formatting: parseInt(this.querySelector('[name="formatting"]').value),
-                                clarity: parseInt(this.querySelector('[name="clarity"]').value),
-                                relevance: parseInt(this.querySelector('[name="relevance"]').value),
-                                skills: parseInt(this.querySelector('[name="skills"]').value)
-                            },
-                            feedback: feedback,
-                            timestamp: new Date().toISOString()
-                        };
-                        
-                        evaluations.push(evaluation);
-                        this.classList.add('hidden');
-                        
-                        const remainingForms = document.querySelectorAll('.evaluation-form:not(.hidden)');
-                        if (remainingForms.length === 0) {
-                            // All evaluations completed
-                            const submissionData = {
-                                meta: {
-                                    evaluator: currentUser,
-                                    submissionDate: new Date().toISOString()
-                                },
-                                evaluations: evaluations
-                            };
-                            
-                            // Display JSON for demonstration
-                            document.getElementById('jsonOutput').classList.remove('hidden');
-                            document.getElementById('jsonOutput').textContent = JSON.stringify(submissionData, null, 2);
-                            
-                            // Show submission info
-                            document.getElementById('submissionInfo').classList.remove('hidden');
-                            
-                            try {
-                                // Submit to server
-                                const result = await submitEvaluations(submissionData);
-                                console.log(result);
-                                document.getElementById('successMessage').classList.remove('hidden');
-                            } catch (error) {
-                                alert('Failed to submit evaluations. Please try again.');
-                            }
-                        }
+
+            if (!response.ok) throw new Error('Network response was not ok');
+
+            return await response.json();
+        } catch (error) {
+            console.error('Error submitting evaluations:', error);
+            throw error;
+        }
+    }
+
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const rollNo = document.getElementById('rollNo').value;
+        const email = document.getElementById('email').value;
+
+        currentUser = { name, rollNo, email };
+        evaluations = [];
+
+        document.getElementById('signupSection').classList.add('hidden');
+        document.getElementById('evaluationSection').classList.remove('hidden');
+        document.getElementById('userName').textContent = name;
+
+        const studentsToEvaluate = assignments[rollNo] || [];
+        const studentListElement = document.getElementById('studentList');
+        studentListElement.innerHTML = '';
+
+        if (studentsToEvaluate.length === 0) {
+            studentListElement.innerHTML = '<p>No evaluation assignments found for your roll number.</p>';
+            return;
+        }
+
+        studentsToEvaluate.forEach(rollNo => {
+            const student = resumes[rollNo];
+            if (!student) return;
+
+            const studentElement = document.createElement('div');
+            studentElement.className = 'student-evaluation';
+            studentElement.innerHTML = `
+                <h3>Evaluate ${student.name} (Roll No: ${rollNo})</h3>
+                <div class="file-preview">
+                    <p>Resume Files:</p>
+                    <ul>
+                        ${student.files.map(file =>
+                            `<li><a href="${file}" class="file-link" target="_blank">${file}</a></li>`
+                        ).join('')}
+                    </ul>
+                </div>
+                <form class="evaluation-form" data-rollno="${rollNo}">
+                    <div class="criteria-grid">
+                        <div class="criteria-item">
+                            <label for="formatting-${rollNo}">Formatting and Layout (10):</label>
+                            <input type="number" id="formatting-${rollNo}" name="formatting" min="0" max="10" required>
+                            <div class="error-message"></div>
+                        </div>
+
+                        <div class="criteria-item">
+                            <label for="clarity-${rollNo}">Clarity and Language (10):</label>
+                            <input type="number" id="clarity-${rollNo}" name="clarity" min="0" max="10" required>
+                            <div class="error-message"></div>
+                        </div>
+
+                        <div class="criteria-item">
+                            <label for="relevance-${rollNo}">Relevance of Content (20):</label>
+                            <input type="number" id="relevance-${rollNo}" name="relevance" min="0" max="20" required>
+                            <div class="error-message"></div>
+                        </div>
+
+                        <div class="criteria-item">
+                            <label for="skills-${rollNo}">Skills and Achievements (10):</label>
+                            <input type="number" id="skills-${rollNo}" name="skills" min="0" max="10" required>
+                            <div class="error-message"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="feedback-${rollNo}">Feedback/Comments:</label>
+                        <textarea id="feedback-${rollNo}" name="feedback" rows="4"></textarea>
+                    </div>
+
+                    <button type="submit">Submit Evaluation</button>
+                </form>
+                <hr>
+            `;
+
+            studentListElement.appendChild(studentElement);
+        });
+
+        document.querySelectorAll('.evaluation-form').forEach(form => {
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                let isValid = true;
+                const inputs = this.querySelectorAll('input[type="number"]');
+
+                inputs.forEach(input => {
+                    const max = parseInt(input.max);
+                    if (!validateMarks(input, max)) {
+                        isValid = false;
+                        input.nextElementSibling.textContent = `Please enter a value between 0 and ${max}`;
+                    } else {
+                        input.nextElementSibling.textContent = '';
                     }
                 });
-                
-                form.querySelectorAll('input[type="number"]').forEach(input => {
-                    input.addEventListener('input', function() {
-                        const max = parseInt(this.max);
-                        validateMarks(this, max);
-                    });
+
+                if (isValid) {
+                    const evaluatedRollNo = this.dataset.rollno;
+                    const feedback = this.querySelector('textarea').value;
+
+                    const evaluation = {
+                        evaluator: currentUser.rollNo,
+                        evaluated: evaluatedRollNo,
+                        scores: {
+                            formatting: parseInt(this.querySelector('[name="formatting"]').value),
+                            clarity: parseInt(this.querySelector('[name="clarity"]').value),
+                            relevance: parseInt(this.querySelector('[name="relevance"]').value),
+                            skills: parseInt(this.querySelector('[name="skills"]').value)
+                        },
+                        feedback: feedback,
+                        timestamp: new Date().toISOString()
+                    };
+
+                    evaluations.push(evaluation);
+                    this.classList.add('hidden');
+
+                    const remainingForms = document.querySelectorAll('.evaluation-form:not(.hidden)');
+                    if (remainingForms.length === 0) {
+                        const submissionData = {
+    evaluator: {
+        ...currentUser,
+        submissionDate: new Date().toISOString(),
+        evaluations: evaluations
+    }
+};
+
+
+                        try {
+                            const result = await submitEvaluations(submissionData);
+                            console.log(result);
+                            alert('Evaluations uploaded successfully!');
+                        } catch (error) {
+                            alert('Failed to submit evaluations. Please try again.');
+                        }
+                    }
+                }
+            });
+
+            form.querySelectorAll('input[type="number"]').forEach(input => {
+                input.addEventListener('input', function() {
+                    const max = parseInt(this.max);
+                    validateMarks(this, max);
                 });
             });
         });
-    </script>
+    });
+</script>
+
 </body>
 </html>
