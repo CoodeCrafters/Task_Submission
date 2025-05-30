@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HS1080 - Resume Evaluation</title>
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #2d3436;
+            --darker: #1e272e;
+            --light: #dfe6e9;
+            --accent: #fd79a8;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            margin-bottom: 2rem;
+        }
+        
+        h1, h2, h3 {
+            margin: 0;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .card {
+            background-color: var(--dark);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--darker);
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: var(--light);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.3);
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        button:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .roll-call {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 2rem 0;
+        }
+        
+        .roll-block {
+            background-color: rgba(108, 92, 231, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            padding: 15px;
+        }
+        
+        .roll-block h4 {
+            margin-top: 0;
+            color: var(--accent);
+            border-bottom: 1px solid #444;
+            padding-bottom: 8px;
+        }
+        
+        .file-preview {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background-color: var(--darker);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .file-link {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .file-link:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+        
+        .criteria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .criteria-item {
+            margin-bottom: 1rem;
+        }
+        
+        .error {
+            color: var(--danger);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        .success-message {
+            background-color: var(--success);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background-color: var(--dark);
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #444;
+        }
+        
+        th {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        tr:hover {
+            background-color: rgba(108, 92, 231, 0.1);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: #777;
+            font-size: 0.9rem;
+            border-top: 1px solid #444;
+            margin-top: 2rem;
+        }
+        
+        .json-display {
+            background-color: var(--darker);
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+        
+        .submission-info {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: rgba(0, 184, 148, 0.1);
+            border: 1px solid var(--success);
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>General Proficiency - 2 (HS1080)</h1>
+            <h2>Activity 6: Resume Evaluation</h2>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section id="signupSection" class="card">
+            <h2>Evaluator Registration</h2>
+            <p>Please enter your details to begin the evaluation process.</p>
+            
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="rollNo">Your Roll Number</label>
+                    <input type="text" id="rollNo" name="rollNo" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <button type="submit">Begin Evaluation</button>
+            </form>
+        </section>
+        
+        <section id="evaluationSection" class="card hidden">
+            <h2>Resume Evaluation</h2>
+            <p>Welcome, <span id="userName" style="color: var(--accent); font-weight: 600;"></span>!</p>
+            <p>You must evaluate these given PDFs and add the marks for respective roll numbers only. The Resume PDF links are provided below each student's information.</p>
+            
+            <div id="studentList" class="student-list">
+                <!-- Student evaluations will be populated here -->
+            </div>
+            
+            <div id="successMessage" class="success-message hidden">
+                Your evaluations have been submitted successfully!
+            </div>
+            
+            <div id="jsonOutput" class="json-display hidden">
+                <!-- JSON output will be displayed here -->
+            </div>
+            
+            <div id="submissionInfo" class="submission-info hidden">
+                <h3>Submission Details</h3>
+                <p>Data has been sent to: <code>https://general-profiecny.com/evaluation</code></p>
+                <p>You can also view the submitted JSON data above for reference.</p>
+            </div>
+        </section>
+        
+        <section class="card">
+            <h2>Roll Call Assignments</h2>
+            <div class="roll-call">
+                <div class="roll-block">
+                    <h4>Roll No 2</h4>
+                    <p>Evaluates: 13, 5, 21, 8</p>
+                </div>
+                <div class="roll-block">
+                    <h4>Roll No 3</h4>
+                    <p>Evaluates: 9, 24, 6, 12</p>
+                </div>
+                <div class="roll-block">
+                    <h4>Roll No 4</h4>
+                    <p>Evaluates: 15, 17, 10, 22</p>
+                </div>
+                <div class="roll-block">
+                    <h4>Roll No 5</h4>
+                    <p>Evaluates: 2, 16, 23, 13</p>
+                </div>
+                <div class="roll-block">
+                    <h4>Roll No 6</h4>
+                    <p>Evaluates: 3, 25, 12, 7</p>
+                </div>
+                <div class="roll-block">
+                    <h4>Roll No 7</h4>
+                    <p>Evaluates: 14, 9, 22, 5</p>
+                </div>
+                <div class="roll-block">
+                    <h4>Roll No 8</h4>
+                    <p>Evaluates: 24, 2, 16, 15</p>
+                </div>
+                <div class="roll-block">
+                    <h4>Roll No 9</h4>
+                    <p>Evaluates: 10, 3, 17, 19</p>
+                </div>
+                <div class="roll-block">
+                    <h4>Roll No 10</h4>
+                    <p>Evaluates: 4, 6, 18, 8</p>
+                </div>
+                <div class="roll-block">
+                    <h4>Roll No 12</h4>
+                    <p>Evaluates: 19, 6, 3, 25</p>
+                </div>
+                <div class="roll-block">
+                    <h4>Roll No 13</h4>
+                    <p>Evaluates: 5, 16, 23, 4</p>
+                </div>
+                <div class="roll-block">
+                    <h4>Roll No 15</h4>
+                    <p>Evaluates: 8, 17, 24, 21</p>
+                </div>
+                <div class="roll-block">
+                    <h4>Roll No 17</h4>
+                    <p>Evaluates: 4, 25, 15, 14</p>
+                </div>
+                <div class="roll-block">
+                    <h4>Roll No 21</h4>
+                    <p>Evaluates: 2, 15, 10, 8</p>
+                </div>
+                <div class="roll-block">
+                    <h4>Roll No 22</h4>
+                    <p>Evaluates: 16, 24, 7, 4</p>
+                </div>
+                <div class="roll-block">
+                    <h4>Roll No 23</h4>
+                    <p>Evaluates: 19, 5, 14, 13</p>
+                </div>
+                <div class="roll-block">
+                    <h4>Roll No 24</h4>
+                    <p>Evaluates: 3, 21, 6, 17</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 General Proficiency - 2 (HS1080) Evaluation System</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Sample resume data
+        const resumes = {
+            "2": { name: "Student 2", files: ["Activity 6/roll_no_2.pdf"] },
+            "3": { name: "Student 3", files: ["Activity 6/roll_no_3.pdf"] },
+            "4": { name: "Student 4", files: ["Activity 6/roll_no_4.pdf"] },
+            "5": { name: "Student 5", files: ["Activity 6/roll_no_5.pdf"] },
+            "6": { name: "Student 6", files: ["Activity 6/roll_no_6.pdf"] },
+            "7": { name: "Student 7", files: ["Activity 6/roll_no_7.pdf"] },
+            "8": { name: "Student 8", files: ["Activity 6/roll_no_8.pdf"] },
+            "9": { name: "Student 9", files: ["Activity 6/roll_no_9.pdf"] },
+            "10": { name: "Student 10", files: ["Activity 6/roll_no_10.pdf"] },
+            "12": { name: "Student 12", files: ["Activity 6/roll_no_12.pdf"] },
+            "13": { name: "Student 13", files: ["Activity 6/roll_no_13.pdf"] },
+            "14": { name: "Student 14", files: ["Activity 6/roll_no_14.pdf"] },
+            "15": { name: "Student 15", files: ["Activity 6/roll_no_15.pdf"] },
+            "16": { name: "Student 16", files: ["Activity 6/roll_no_16.pdf"] },
+            "17": { name: "Student 17", files: ["Activity 6/roll_no_17.pdf"] },
+            "18": { name: "Student 18", files: ["Activity 6/roll_no_18.pdf"] },
+            "19": { name: "Student 19", files: ["Activity 6/roll_no_19.pdf"] },
+            "21": { name: "Student 21", files: ["Activity 6/roll_no_21.pdf"] },
+            "22": { name: "Student 22", files: ["Activity 6/roll_no_22.pdf"] },
+            "23": { name: "Student 23", files: ["Activity 6/roll_no_23.pdf"] },
+            "24": { name: "Student 24", files: ["Activity 6/roll_no_24.pdf"] },
+            "25": { name: "Student 25", files: ["Activity 6/roll_no_25.pdf"] }
+        };
+
+        // Assignment mapping
+        const assignments = {
+            "2": ["13", "5", "21", "8"],
+            "3": ["9", "24", "6", "12"],
+            "4": ["15", "17", "10", "22"],
+            "5": ["2", "16", "23", "13"],
+            "6": ["3", "25", "12", "7"],
+            "7": ["14", "9", "22", "5"],
+            "8": ["24", "2", "16", "15"],
+            "9": ["10", "3", "17", "19"],
+            "10": ["4", "6", "18", "8"],
+            "12": ["19", "6", "3", "25"],
+            "13": ["5", "16", "23", "4"],
+            "15": ["8", "17", "24", "21"],
+            "17": ["4", "25", "15", "14"],
+            "21": ["2", "15", "10", "8"],
+            "22": ["16", "24", "7", "4"],
+            "23": ["19", "5", "14", "13"],
+            "24": ["3", "21", "6", "17"]
+        };
+
+        // Store user data and evaluations
+        let currentUser = null;
+        let evaluations = [];
+        
+        // Function to validate marks input
+        function validateMarks(input, maxMarks) {
+            const value = parseInt(input.value);
+            if (isNaN(value) || value < 0 || value > maxMarks) {
+                input.classList.add('error');
+                return false;
+            } else {
+                input.classList.remove('error');
+                return true;
+            }
+        }
+        
+        // Function to submit evaluations to server
+        async function submitEvaluations(evaluationData) {
+            const endpoint = 'https://general-profiecny.com/evaluation';
+            
+            try {
+                // In a real implementation, you would use fetch() to send data
+                console.log('Submitting to:', endpoint);
+                console.log('Data:', evaluationData);
+                
+                // Simulate network delay
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // For demo purposes, we'll just return a success message
+                return { status: 'success', message: 'Evaluations submitted successfully' };
+            } catch (error) {
+                console.error('Error submitting evaluations:', error);
+                throw error;
+            }
+        }
+        
+        // Signup form submission
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const rollNo = document.getElementById('rollNo').value;
+            const email = document.getElementById('email').value;
+            
+            currentUser = { name, rollNo, email };
+            evaluations = [];
+            
+            document.getElementById('signupSection').classList.add('hidden');
+            document.getElementById('evaluationSection').classList.remove('hidden');
+            document.getElementById('userName').textContent = name;
+            
+            const studentsToEvaluate = assignments[rollNo] || [];
+            const studentListElement = document.getElementById('studentList');
+            studentListElement.innerHTML = '';
+            
+            if (studentsToEvaluate.length === 0) {
+                studentListElement.innerHTML = '<p>No evaluation assignments found for your roll number.</p>';
+                return;
+            }
+            
+            studentsToEvaluate.forEach(rollNo => {
+                const student = resumes[rollNo];
+                if (!student) return;
+                
+                const studentElement = document.createElement('div');
+                studentElement.className = 'student-evaluation';
+                studentElement.innerHTML = `
+                    <h3>Evaluate ${student.name} (Roll No: ${rollNo})</h3>
+                    <div class="file-preview">
+                        <p>Resume Files:</p>
+                        <ul>
+                            ${student.files.map(file => 
+                                `<li><a href="${file}" class="file-link" target="_blank">${file}</a></li>`
+                            ).join('')}
+                        </ul>
+                    </div>
+                    <form class="evaluation-form" data-rollno="${rollNo}">
+                        <div class="criteria-grid">
+                            <div class="criteria-item">
+                                <label for="formatting-${rollNo}">Formatting and Layout (10):</label>
+                                <input type="number" id="formatting-${rollNo}" name="formatting" min="0" max="10" required>
+                                <div class="error-message"></div>
+                            </div>
+                            
+                            <div class="criteria-item">
+                                <label for="clarity-${rollNo}">Clarity and Language (10):</label>
+                                <input type="number" id="clarity-${rollNo}" name="clarity" min="0" max="10" required>
+                                <div class="error-message"></div>
+                            </div>
+                            
+                            <div class="criteria-item">
+                                <label for="relevance-${rollNo}">Relevance of Content (20):</label>
+                                <input type="number" id="relevance-${rollNo}" name="relevance" min="0" max="20" required>
+                                <div class="error-message"></div>
+                            </div>
+                            
+                            <div class="criteria-item">
+                                <label for="skills-${rollNo}">Skills and Achievements (10):</label>
+                                <input type="number" id="skills-${rollNo}" name="skills" min="0" max="10" required>
+                                <div class="error-message"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="feedback-${rollNo}">Feedback/Comments:</label>
+                            <textarea id="feedback-${rollNo}" name="feedback" rows="4"></textarea>
+                        </div>
+                        
+                        <button type="submit">Submit Evaluation</button>
+                    </form>
+                    <hr>
+                `;
+                
+                studentListElement.appendChild(studentElement);
+            });
+            
+            document.querySelectorAll('.evaluation-form').forEach(form => {
+                form.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    let isValid = true;
+                    const inputs = this.querySelectorAll('input[type="number"]');
+                    
+                    inputs.forEach(input => {
+                        const max = parseInt(input.max);
+                        if (!validateMarks(input, max)) {
+                            isValid = false;
+                            input.nextElementSibling.textContent = `Please enter a value between 0 and ${max}`;
+                        } else {
+                            input.nextElementSibling.textContent = '';
+                        }
+                    });
+                    
+                    if (isValid) {
+                        const evaluatedRollNo = this.dataset.rollno;
+                        const feedback = this.querySelector('textarea').value;
+                        
+                        const evaluation = {
+                            evaluator: currentUser.rollNo,
+                            evaluated: evaluatedRollNo,
+                            scores: {
+                                formatting: parseInt(this.querySelector('[name="formatting"]').value),
+                                clarity: parseInt(this.querySelector('[name="clarity"]').value),
+                                relevance: parseInt(this.querySelector('[name="relevance"]').value),
+                                skills: parseInt(this.querySelector('[name="skills"]').value)
+                            },
+                            feedback: feedback,
+                            timestamp: new Date().toISOString()
+                        };
+                        
+                        evaluations.push(evaluation);
+                        this.classList.add('hidden');
+                        
+                        const remainingForms = document.querySelectorAll('.evaluation-form:not(.hidden)');
+                        if (remainingForms.length === 0) {
+                            // All evaluations completed
+                            const submissionData = {
+                                meta: {
+                                    evaluator: currentUser,
+                                    submissionDate: new Date().toISOString()
+                                },
+                                evaluations: evaluations
+                            };
+                            
+                            // Display JSON for demonstration
+                            document.getElementById('jsonOutput').classList.remove('hidden');
+                            document.getElementById('jsonOutput').textContent = JSON.stringify(submissionData, null, 2);
+                            
+                            // Show submission info
+                            document.getElementById('submissionInfo').classList.remove('hidden');
+                            
+                            try {
+                                // Submit to server
+                                const result = await submitEvaluations(submissionData);
+                                console.log(result);
+                                document.getElementById('successMessage').classList.remove('hidden');
+                            } catch (error) {
+                                alert('Failed to submit evaluations. Please try again.');
+                            }
+                        }
+                    }
+                });
+                
+                form.querySelectorAll('input[type="number"]').forEach(input => {
+                    input.addEventListener('input', function() {
+                        const max = parseInt(this.max);
+                        validateMarks(this, max);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
