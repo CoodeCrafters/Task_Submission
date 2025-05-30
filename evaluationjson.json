@@ -614,5 +614,61 @@
         "timestamp": "2025-05-30T19:25:11.263Z"
       }
     ]
+  },
+  {
+    "rollNo": "21",
+    "name": "Atharv Sanjay Sonawane ",
+    "email": "atharv.sonawane241@vit.edu",
+    "submissionDate": "2025-05-30T19:27:43.145Z",
+    "evaluations": [
+      {
+        "evaluator": "21",
+        "evaluated": "8",
+        "scores": {
+          "formatting": 9,
+          "clarity": 10,
+          "relevance": 20,
+          "skills": 10
+        },
+        "feedback": "Good",
+        "timestamp": "2025-05-30T19:27:22.030Z"
+      },
+      {
+        "evaluator": "21",
+        "evaluated": "10",
+        "scores": {
+          "formatting": 10,
+          "clarity": 10,
+          "relevance": 20,
+          "skills": 10
+        },
+        "feedback": "Brilliant ",
+        "timestamp": "2025-05-30T19:27:30.154Z"
+      },
+      {
+        "evaluator": "21",
+        "evaluated": "15",
+        "scores": {
+          "formatting": 10,
+          "clarity": 10,
+          "relevance": 20,
+          "skills": 10
+        },
+        "feedback": "Good",
+        "timestamp": "2025-05-30T19:27:39.846Z"
+      },
+      {
+        "evaluator": "21",
+        "evaluated": "2",
+        "scores": {
+          "formatting": 10,
+          "clarity": 10,
+          "relevance": 20,
+          "skills": 10
+        },
+        "feedback": "Excellent ",
+        "timestamp": "2025-05-30T19:27:43.145Z"
+      }
+    ]
   }
 ]
