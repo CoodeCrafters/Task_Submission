@@ -54,5 +54,61 @@
         "timestamp": "2025-05-30T18:33:48.226Z"
       }
     ]
+  },
+  {
+    "rollNo": "24",
+    "name": "Sufyan Mushtaque Surve",
+    "email": "sufyan.surve24@vit.edu",
+    "submissionDate": "2025-05-30T18:37:24.690Z",
+    "evaluations": [
+      {
+        "evaluator": "24",
+        "evaluated": "3",
+        "scores": {
+          "formatting": 5,
+          "clarity": 5,
+          "relevance": 5,
+          "skills": 5
+        },
+        "feedback": "5",
+        "timestamp": "2025-05-30T18:37:00.207Z"
+      },
+      {
+        "evaluator": "24",
+        "evaluated": "21",
+        "scores": {
+          "formatting": 5,
+          "clarity": 5,
+          "relevance": 5,
+          "skills": 5
+        },
+        "feedback": "",
+        "timestamp": "2025-05-30T18:37:05.393Z"
+      },
+      {
+        "evaluator": "24",
+        "evaluated": "6",
+        "scores": {
+          "formatting": 5,
+          "clarity": 5,
+          "relevance": 5,
+          "skills": 5
+        },
+        "feedback": "",
+        "timestamp": "2025-05-30T18:37:11.817Z"
+      },
+      {
+        "evaluator": "24",
+        "evaluated": "17",
+        "scores": {
+          "formatting": 5,
+          "clarity": 5,
+          "relevance": 5,
+          "skills": 5
+        },
+        "feedback": "5",
+        "timestamp": "2025-05-30T18:37:24.690Z"
+      }
+    ]
   }
 ]
