@@ -572,12 +572,13 @@
                     const remainingForms = document.querySelectorAll('.evaluation-form:not(.hidden)');
                     if (remainingForms.length === 0) {
                         const submissionData = {
-    evaluator: {
-        ...currentUser,
-        submissionDate: new Date().toISOString(),
-        evaluations: evaluations
-    }
+    rollNo: currentUser.rollNo,
+    name: currentUser.name,
+    email: currentUser.email,
+    submissionDate: new Date().toISOString(),
+    evaluations: evaluations
 };
+
 
 
                         try {
