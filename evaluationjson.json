@@ -502,5 +502,61 @@
         "timestamp": "2025-05-30T19:13:34.799Z"
       }
     ]
+  },
+  {
+    "rollNo": "24",
+    "name": "SUMIT DAYAL",
+    "email": "sumit.dayal24@vit.edu",
+    "submissionDate": "2025-05-30T19:17:40.512Z",
+    "evaluations": [
+      {
+        "evaluator": "24",
+        "evaluated": "17",
+        "scores": {
+          "formatting": 10,
+          "clarity": 10,
+          "relevance": 20,
+          "skills": 10
+        },
+        "feedback": "Good",
+        "timestamp": "2025-05-30T19:12:07.508Z"
+      },
+      {
+        "evaluator": "24",
+        "evaluated": "6",
+        "scores": {
+          "formatting": 9,
+          "clarity": 9,
+          "relevance": 19,
+          "skills": 10
+        },
+        "feedback": "Good",
+        "timestamp": "2025-05-30T19:12:32.519Z"
+      },
+      {
+        "evaluator": "24",
+        "evaluated": "21",
+        "scores": {
+          "formatting": 10,
+          "clarity": 10,
+          "relevance": 19,
+          "skills": 9
+        },
+        "feedback": "Good",
+        "timestamp": "2025-05-30T19:13:29.582Z"
+      },
+      {
+        "evaluator": "24",
+        "evaluated": "3",
+        "scores": {
+          "formatting": 10,
+          "clarity": 10,
+          "relevance": 20,
+          "skills": 10
+        },
+        "feedback": "Good!",
+        "timestamp": "2025-05-30T19:17:40.512Z"
+      }
+    ]
   }
 ]
