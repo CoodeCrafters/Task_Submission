@@ -838,5 +838,61 @@
         "timestamp": "2025-05-30T20:00:01.797Z"
       }
     ]
+  },
+  {
+    "rollNo": "12",
+    "name": "Omkar Singare",
+    "email": "omkar.singare24@vit.edu",
+    "submissionDate": "2025-05-31T00:48:26.113Z",
+    "evaluations": [
+      {
+        "evaluator": "12",
+        "evaluated": "19",
+        "scores": {
+          "formatting": 9,
+          "clarity": 8,
+          "relevance": 16,
+          "skills": 5
+        },
+        "feedback": "",
+        "timestamp": "2025-05-31T00:47:07.458Z"
+      },
+      {
+        "evaluator": "12",
+        "evaluated": "6",
+        "scores": {
+          "formatting": 3,
+          "clarity": 5,
+          "relevance": 12,
+          "skills": 5
+        },
+        "feedback": "",
+        "timestamp": "2025-05-31T00:47:47.841Z"
+      },
+      {
+        "evaluator": "12",
+        "evaluated": "3",
+        "scores": {
+          "formatting": 10,
+          "clarity": 10,
+          "relevance": 19,
+          "skills": 9
+        },
+        "feedback": "",
+        "timestamp": "2025-05-31T00:48:15.669Z"
+      },
+      {
+        "evaluator": "12",
+        "evaluated": "25",
+        "scores": {
+          "formatting": 9,
+          "clarity": 9,
+          "relevance": 19,
+          "skills": 8
+        },
+        "feedback": "",
+        "timestamp": "2025-05-31T00:48:26.111Z"
+      }
+    ]
   }
 ]
