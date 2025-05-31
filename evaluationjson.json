@@ -950,5 +950,61 @@
         "timestamp": "2025-05-31T02:21:10.422Z"
       }
     ]
+  },
+  {
+    "rollNo": "9",
+    "name": "Swanandi Mayur Shukla ",
+    "email": "swanandi.shukla24@vit.edu",
+    "submissionDate": "2025-05-31T02:55:56.360Z",
+    "evaluations": [
+      {
+        "evaluator": "9",
+        "evaluated": "10",
+        "scores": {
+          "formatting": 9,
+          "clarity": 10,
+          "relevance": 19,
+          "skills": 10
+        },
+        "feedback": "",
+        "timestamp": "2025-05-31T02:55:14.308Z"
+      },
+      {
+        "evaluator": "9",
+        "evaluated": "3",
+        "scores": {
+          "formatting": 10,
+          "clarity": 10,
+          "relevance": 19,
+          "skills": 10
+        },
+        "feedback": "",
+        "timestamp": "2025-05-31T02:55:26.196Z"
+      },
+      {
+        "evaluator": "9",
+        "evaluated": "17",
+        "scores": {
+          "formatting": 10,
+          "clarity": 10,
+          "relevance": 19,
+          "skills": 10
+        },
+        "feedback": "",
+        "timestamp": "2025-05-31T02:55:40.733Z"
+      },
+      {
+        "evaluator": "9",
+        "evaluated": "19",
+        "scores": {
+          "formatting": 10,
+          "clarity": 10,
+          "relevance": 19,
+          "skills": 10
+        },
+        "feedback": "",
+        "timestamp": "2025-05-31T02:55:56.360Z"
+      }
+    ]
   }
 ]
